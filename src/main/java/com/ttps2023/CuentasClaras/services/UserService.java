@@ -16,8 +16,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 	
-	public Boolean exists(User user) {
-		return userRepository.existsById(user.getId());
+	public Boolean exists(Long id) {
+		return userRepository.existsById(id);
 	}
 	
 	public void create(User user) {
@@ -25,8 +25,10 @@ public class UserService {
 	}
 	
 	public Optional<User> authenticateWithUsernameAndPass(String username, String pass) {
-		
-//		System.out.println(userRepository.getByUsernameAndPass(username, pass).toString());
 		return userRepository.findByUsernameAndPass(username, pass);
+	}
+	
+	public Optional<User> getById(Long id) {
+		return userRepository.findById(id);
 	}
 }
