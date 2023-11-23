@@ -38,7 +38,7 @@ public class UserRestController {
 
 	@PostMapping("/create")
 	public ResponseEntity<String> createUser(@RequestBody User user) {
-		if (userService.exists(user.getId())) {
+		if (userService.exists(user.getId())) {													//en vez de id no seria username ej
 			return new ResponseEntity<String>("Usuario ya existe", HttpStatus.CONFLICT);
 		}
 
