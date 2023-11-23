@@ -92,11 +92,41 @@ public class UserRestController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
-		HttpHeaders responseHeaders = new HttpHeaders();					  //
-		responseHeaders.set("Token", user.getId() + "/123456");               // HACER FILTRO O MODULO APARTE?
+        	
+		HttpHeaders responseHeaders = new HttpHeaders();					//
+		responseHeaders.set("Token", user.getId() + "/123456");             // HACER FILTRO O MODULO APARTE?
 	
 		return ResponseEntity.ok().headers(responseHeaders).body(userJson); //
+	}
+	
+	
+	@GetMapping("/alt/{id}")
+	public ResponseEntity<Object> altGetById(@PathVariable Long id, @RequestHeader("Token") String token) {
+		
+
+		Optional<User> userQuery = userService.getById(id);
+		
+		User user = userQuery.orElse(null);
+		if (user == null) {
+			return new ResponseEntity<Object>("Usuario no encontrado.", HttpStatus.NOT_FOUND);
+		}
+		
+		if (!token.equals(user.getId()+"/123456")) {
+			return new ResponseEntity<Object>("Usuario no encontrado.", HttpStatus.UNAUTHORIZED);
+		}
+		        
+        Map<String, Object> jsonMap = Map.of("id", user.getId(), 
+        									 "username", user.getUsername(), 
+        									 "lastname", user.getLastname(), 
+        									 "name", user.getName(), 
+        									 "email", user.getEmail(), 
+        									 "youOwe", user.getYouOwe(), 
+        									 "youAreOwed", user.getYouAreOwed());
+               		
+		HttpHeaders responseHeaders = new HttpHeaders();					
+		responseHeaders.set("Token", user.getId() + "/123456");             
+	
+		return ResponseEntity.ok().headers(responseHeaders).body(jsonMap); 
 	}
 
 }
