@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.ttps2023.CuentasClaras.model.Crew;
+import com.ttps2023.CuentasClaras.model.CrewCategory;
 import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.repositories.CrewRepository;
 
@@ -27,8 +28,26 @@ public class CrewService {
 	
 	public void create(Crew crew) {
 		crewRepository.save(crew);
-	}}
+	}
 
+	
+	public Optional<Crew> getById(Long id) {
+		return crewRepository.findById(id);
+	}
+	
+	public Crew updateCrew(Crew crew)  {
+		Optional<Crew> crewQuery= crewRepository.findById(crew.getId());
+		Crew crewBD=crewQuery.orElse(null);
+		crewBD.setName(crew.getName());   //aca le puse una condicion de q vuevla null pero java dice q es alpedo
+		crewBD.setActive(crew.getActive());
+		
+		return crewRepository.save(crewBD);
+		
+	}
+	
+	
+	
+}
 //	public Optional<Crew> getById(Long id) {
 //		Optional<Crew> aux= crewRepository.findById(id);
 //		Crew aux2 = aux.orElse(null);
