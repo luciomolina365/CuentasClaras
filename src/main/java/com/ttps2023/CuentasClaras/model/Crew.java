@@ -51,12 +51,14 @@ public class Crew {
 	
 	public Crew() {}
 
-	public String getGroupName() {
+	
+
+	public String getCrewName() {
 		return crewName;
 	}
 
-	public void setGroupName(String groupName) {
-		this.crewName = groupName;
+	public void setCrewName(String crewName) {
+		this.crewName = crewName;
 	}
 
 	public Boolean getActive() {

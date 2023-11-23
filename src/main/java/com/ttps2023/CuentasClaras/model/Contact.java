@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "contact")
-public class Contacts {
+public class Contact {
 		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
@@ -31,7 +31,7 @@ public class Contacts {
 		@JoinColumn(name="id_user")
 		private User user;
 
-		public Contacts(User user, Date date) {
+		public Contact(User user, Date date) {
 			super();
 			this.user = user;
 			this.date = date;
