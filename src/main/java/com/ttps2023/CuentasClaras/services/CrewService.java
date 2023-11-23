@@ -27,27 +27,21 @@ public class CrewService {
 	
 	public void create(Crew crew) {
 		crewRepository.save(crew);
-	}
+	}}
 
-	public Optional<Crew> getById(Long id) {
-		Optional<Crew> aux= crewRepository.findById(id);
-		Crew aux2 = aux.orElse(null);
-		
-		
-		System.out.println(aux2.getMembersList().toString());
-		
-		return aux;
+//	public Optional<Crew> getById(Long id) {
+//		Optional<Crew> aux= crewRepository.findById(id);
+//		Crew aux2 = aux.orElse(null);
+//		
+//		
+//		System.out.println(aux2.getMembersList().toString());
+//		
+//		return aux;
 		
 //		return crewRepository.findById(id);
-	}
 	
 //	
 //	 public List<User> getAllMembersList(Long crewId){
 //		 return 
 //	 }
-	 
-	 
-	
-	
-	
-}
+//}

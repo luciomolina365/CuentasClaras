@@ -35,8 +35,8 @@ public class User {
 	@Column(name = "youAreOwed")
 	private Float youAreOwed;
 
-//	@OneToMany(mappedBy = "user") 
-//	private List<Contact> contactList;
+	@OneToMany(mappedBy = "user") 
+	private List<Contact> contactList;
 	
 
 	@ManyToMany
@@ -65,7 +65,7 @@ public class User {
 		this.pass = pass;
 		this.youOwe = (float) 0;
 		this.youAreOwed = (float) 0;
-//		this.contactList = null;
+		this.contactList = null;
 		this.crewList = null;
 		this.friendRequestList = null;
 		this.expenseList= null;
@@ -143,13 +143,13 @@ public class User {
 	}
 	
 
-//	public List<Contact> getContacts() {
-//		return contactList;
-//	}
-//
-//	public void setContacts(List<Contact> contacts) {
-//		this.contactList = contacts;
-//	}
+	public List<Contact> getContacts() {
+		return contactList;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contactList = contacts;
+	}
 
 	@Override
 	public String toString() {
@@ -159,23 +159,23 @@ public class User {
 				+ expenseList + "]";
 	}
 
-//	public void addContact(User user) {
-//		
-//		
-//		LocalDate today = LocalDate.now();
-//
-//        // Convertir LocalDate a java.sql.Date
-//        Date date = Date.valueOf(today);
-//		
-//		Contact contact1 =new Contact(this, date);
-//		Contact contact2 =new Contact(user, date);
-//		
-//		this.contactList.add(contact1);
-//		this.contactList.add(contact2);
-//		
-//		
-//	}
-//	
+	public void addContact(User user) {
+		
+		
+		LocalDate today = LocalDate.now();
+
+        // Convertir LocalDate a java.sql.Date
+        Date date = Date.valueOf(today);
+		
+		Contact contact1 =new Contact(this, date);
+		Contact contact2 =new Contact(user, date);
+		
+		this.contactList.add(contact1);
+		this.contactList.add(contact2);
+		
+		
+	}
+	
 	
 	
 	

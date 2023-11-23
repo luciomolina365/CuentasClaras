@@ -39,6 +39,6 @@ public class Contact {
 			this.youAreOwed = (float) 0.0;
 		}
 
-		
+		public Contact() {}
 		
 }

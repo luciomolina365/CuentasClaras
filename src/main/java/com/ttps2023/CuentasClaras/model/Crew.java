@@ -21,8 +21,8 @@ public class Crew {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@Column(name = "crewName")
-	private String crewName;
+	@Column(name = "name")
+	private String name;
 	
 	@Column(name = "active")
 	private Boolean active;
@@ -41,7 +41,7 @@ public class Crew {
  	
 	public Crew(String groupName, Boolean isPrivate, CrewCategory category, List<User> membersList) {
 		super();
-		this.crewName = groupName;
+		this.name = groupName;
 		this.active = true;
 		this.isPrivate = isPrivate;
 		this.category = category;
@@ -54,11 +54,11 @@ public class Crew {
 	
 
 	public String getCrewName() {
-		return crewName;
+		return name;
 	}
 
 	public void setCrewName(String crewName) {
-		this.crewName = crewName;
+		this.name = crewName;
 	}
 
 	public Boolean getActive() {
