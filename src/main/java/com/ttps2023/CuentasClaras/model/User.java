@@ -33,9 +33,9 @@ public class User {
 	@Column(name = "youAreOwed")
 	private Float youAreOwed;
 
+	@OneToMany(mappedBy = "user") 
+	private List<Contacts> contacts;
 	
-	
-//	private List<User> friendsList;
 
 	@ManyToMany
 	@JoinTable(
@@ -63,7 +63,7 @@ public class User {
 		this.pass = pass;
 		this.youOwe = (float) 0;
 		this.youAreOwed = (float) 0;
-//		this.friendsList = null;
+		this.contacts = null;
 		this.crewList = null;
 		this.friendRequestList = null;
 		this.expenseList= null;
@@ -140,20 +140,22 @@ public class User {
 		this.youAreOwed = youAreOwed;
 	}
 	
+	
+	
+	
 //	public void addFriend(User user) {
 //		this.friendsList.add(user);
 //		user.friendsList.add(this);
 //		//acordarse de agregarlo en la lista del otro usuario
 //	}
-//	
-//
-//	public List<User> getFriendsList() {
-//		return friendsList;
-//	}
-//
-//	public void setFriendsList(List<User> friendsList) {
-//		this.friendsList = friendsList;
-//	}
+
+	public List<Contacts> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contacts> contacts) {
+		this.contacts = contacts;
+	}
 
 	public void addGroup() {}
 
