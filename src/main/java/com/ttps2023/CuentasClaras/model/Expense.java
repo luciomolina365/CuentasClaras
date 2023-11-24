@@ -66,4 +66,77 @@ public class Expense {
 		this.isPaid = isPaid;
 		this.paymentList = paymentList;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Boolean getIsPaid() {
+		return isPaid;
+	}
+
+	public void setIsPaid(Boolean isPaid) {
+		this.isPaid = isPaid;
+	}
+
+	public Float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public User getBelongsTo() {
+		return belongsTo;
+	}
+
+	public void setBelongsTo(User belongsTo) {
+		this.belongsTo = belongsTo;
+	}
+
+	public Crew getCrew() {
+		return crew;
+	}
+
+	public void setCrew(Crew crew) {
+		this.crew = crew;
+	}
+
+	public ExpenseCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(ExpenseCategory category) {
+		this.category = category;
+	}
+
+	public List<Payment> getPaymentList() {
+		return paymentList;
+	}
+
+	public void setPaymentList(List<Payment> paymentList) {
+		this.paymentList = paymentList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

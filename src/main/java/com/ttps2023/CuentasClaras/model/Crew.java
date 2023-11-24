@@ -53,14 +53,6 @@ public class Crew {
 
 	
 
-	public String getCrewName() {
-		return name;
-	}
-
-	public void setCrewName(String crewName) {
-		this.name = crewName;
-	}
-
 	public Boolean getActive() {
 		return active;
 	}
@@ -99,6 +91,27 @@ public class Crew {
 
 	public void setExpenseList(List<Expense> expenseList) {
 		this.expenseList = expenseList;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void addExpense(Expense expense) {
+		
+		this.expenseList.add(expense);
 	}
  	
 }
