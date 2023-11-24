@@ -4,6 +4,9 @@ package com.ttps2023.CuentasClaras.model;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,6 +34,8 @@ public class Expense {
 	@Column(name = "amount")
 	private Float amount;
 	
+	
+	
 	@Column(name = "date")
 	private Date date;
 	
@@ -38,6 +43,7 @@ public class Expense {
 	private User belongsTo;
 	
 	@ManyToOne
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Crew crew;
 	
 	@ManyToOne

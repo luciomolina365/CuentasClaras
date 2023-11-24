@@ -1,5 +1,6 @@
 package com.ttps2023.CuentasClaras.services;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -31,19 +32,19 @@ public class ExpenseService {
 			return expenseRepository.findById(id);
 		}
 	
-//		public Expense updateExpense(Long expenseId, Float amount)  {
-//			
-//
-//			Optional<Expense> expenseQuery = expenseRepository.findById(expenseId);
-//			Expense expenseBd = expenseQuery.orElse(null);
-//			
-//			expenseBd.setAmount(amount);
-//			
-//			return expenseRepository.save(expenseBd);
-//			
-//		
-//			
-//		}
+		public Expense updateExpense(Long expenseId, Date date)  {
+			
+
+			Optional<Expense> expenseQuery = expenseRepository.findById(expenseId);
+			Expense expenseBd = expenseQuery.orElse(null);
+			
+			expenseBd.setDate(date);
+			
+			return expenseRepository.save(expenseBd);
+			
+		
+			
+		}
 		
 		
 }

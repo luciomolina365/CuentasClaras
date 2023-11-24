@@ -68,39 +68,36 @@ public class UserRestController {
 		return ResponseEntity.accepted().headers(responseHeaders).body(null); //
 	}
 	
+//	@GetMapping("/alt/{id}")
+//	public ResponseEntity<String> getById(@PathVariable Long id, @RequestHeader("Token") String token) {
+//		
+//
+//		Optional<User> userQuery = userService.getById(id);
+//		
+//		User user = userQuery.orElse(null);
+//		if (user == null) {
+//			return new ResponseEntity<String>("Usuario no encontrado.", HttpStatus.NOT_FOUND);
+//		}
+//		
+//		if (!token.equals(user.getId()+"/123456")) {
+//			return new ResponseEntity<String>("Usuario no encontrado.", HttpStatus.UNAUTHORIZED);
+//		}
+//		
+//		
+//        ObjectMapper objectMapper = new ObjectMapper();
+//
+//        String userJson = null;
+//        try {
+//			userJson = objectMapper.writeValueAsString(user);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+//        
+//		return ResponseEntity.ok().body(userJson); 
+//	}
+	
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<String> getById(@PathVariable Long id, @RequestHeader("Token") String token) {
-		
-
-		Optional<User> userQuery = userService.getById(id);
-		
-		User user = userQuery.orElse(null);
-		if (user == null) {
-			return new ResponseEntity<String>("Usuario no encontrado.", HttpStatus.NOT_FOUND);
-		}
-		
-		if (!token.equals(user.getId()+"/123456")) {
-			return new ResponseEntity<String>("Usuario no encontrado.", HttpStatus.UNAUTHORIZED);
-		}
-		
-		
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        String userJson = null;
-        try {
-			userJson = objectMapper.writeValueAsString(user);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-        	
-		HttpHeaders responseHeaders = new HttpHeaders();					//
-		responseHeaders.set("Token", user.getId() + "/123456");             // HACER FILTRO O MODULO APARTE?
-	
-		return ResponseEntity.ok().headers(responseHeaders).body(userJson); //
-	}
-	
-	
-	@GetMapping("/alt/{id}")
 	public ResponseEntity<Object> altGetById(@PathVariable Long id, @RequestHeader("Token") String token) {
 		
 
@@ -113,20 +110,9 @@ public class UserRestController {
 		
 		if (!token.equals(user.getId()+"/123456")) {
 			return new ResponseEntity<Object>("Usuario no encontrado.", HttpStatus.UNAUTHORIZED);
-		}
-		        
-        Map<String, Object> jsonMap = Map.of("id", user.getId(), 
-        									 "username", user.getUsername(), 
-        									 "lastname", user.getLastname(), 
-        									 "name", user.getName(), 
-        									 "email", user.getEmail(), 
-        									 "youOwe", user.getYouOwe(), 
-        									 "youAreOwed", user.getYouAreOwed());
-               		
-		HttpHeaders responseHeaders = new HttpHeaders();					
-		responseHeaders.set("Token", user.getId() + "/123456");             
-	
-		return ResponseEntity.ok().headers(responseHeaders).body(jsonMap); 
+		}		      
+		
+		return ResponseEntity.ok().body(user); 
 	}
 
 }

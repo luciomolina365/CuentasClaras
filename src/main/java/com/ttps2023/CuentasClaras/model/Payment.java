@@ -2,6 +2,9 @@ package com.ttps2023.CuentasClaras.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.*;
 
 
@@ -25,6 +28,7 @@ public class Payment {
 	private User belongsTo;
 		
 	@ManyToOne
+	@JsonProperty(access = Access.WRITE_ONLY)
 //  @JoinColumn(name = "expense_id")
     private Expense expense;
 	
