@@ -108,7 +108,10 @@ public class Crew {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
+	
+	public void addExpense(Expense expense) {
+		
+		this.expenseList.add(expense);
+	}
  	
 }
