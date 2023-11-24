@@ -1,6 +1,7 @@
 package com.ttps2023.CuentasClaras.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -35,11 +36,12 @@ public class CrewService {
 		return crewRepository.findById(id);
 	}
 	
-	public Crew updateCrew(Crew crew)  {
-		Optional<Crew> crewQuery= crewRepository.findById(crew.getId());
-		Crew crewBD=crewQuery.orElse(null);
-		crewBD.setName(crew.getName());   //aca le puse una condicion de q vuevla null pero java dice q es alpedo
-		crewBD.setActive(crew.getActive());
+	public Crew updateCrew(Long crewId,String name, Boolean isActive )  {
+		Optional<Crew> crewQuery= crewRepository.findById(crewId);
+		Crew crewBD=crewQuery.orElse(null);  									//se rompe si no existe ver si hace falta
+		
+		crewBD.setName(name);  
+		crewBD.setActive(isActive);
 		
 		return crewRepository.save(crewBD);
 		

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
@@ -20,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.services.CrewService;
+
+import jakarta.persistence.Column;
 
 
 
@@ -41,9 +44,16 @@ public class CrewRestController {
 		
 		
 		 @PutMapping("/update/{id}")
-		 public Crew update(@RequestBody Crew crew, @PathVariable("id") Long crewId) {
-			 return crewService.updateCrew(crew);
-		 
+		 public Crew update(@RequestBody Map<String, Object> crewRequest, @PathVariable("id") Long crewId) {
+			 String name =(String) crewRequest.get("name");
+			 Boolean isActive =(Boolean)crewRequest.get("active");
+			 System.out.println("adafafaafnbaiufifaufhvhfavahfvfahvfahvafdvafhjfafasdbfaedafedyuifaedy");
+			 System.out.println(crewId);
+			 System.out.println(name);
+			 System.out.println(isActive);
+			 return crewService.updateCrew(crewId, name, isActive);
+			 
+			
 		 
 
 		
