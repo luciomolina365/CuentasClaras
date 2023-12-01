@@ -52,17 +52,26 @@ public class Expense {
 	@OneToMany(mappedBy = "expense", fetch = FetchType.LAZY)
 	private List<Payment> paymentList;
 	
-//	private SplitWay splitway;
+	@OneToMany(mappedBy = "id")
+	private SplitWay splitway;
 	
 	
 	
 	
+	public SplitWay getSplitway() {
+		return splitway;
+	}
+
+	public void setSplitway(SplitWay splitway) {
+		this.splitway = splitway;
+	}
+
 	public  Expense() {
 		
 	}
 
 	public Expense(User belongsTo, Crew crew, Float amount, ExpenseCategory category, Date date, Boolean isPaid,
-			List<Payment> paymentList) {
+			List<Payment> paymentList, SplitWay splitway) {
 		super();
 		this.belongsTo = belongsTo;
 		this.crew = crew;
@@ -71,6 +80,7 @@ public class Expense {
 		this.date = date;
 		this.isPaid = isPaid;
 		this.paymentList = paymentList;
+		this.splitway = splitway;
 	}
 
 	public Long getId() {

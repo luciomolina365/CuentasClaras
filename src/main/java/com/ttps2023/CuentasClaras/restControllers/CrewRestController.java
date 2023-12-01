@@ -69,9 +69,7 @@ public class CrewRestController {
 					return new ResponseEntity<String>("Datos del grupo incorrectos.", HttpStatus.FORBIDDEN);
 				}
 				
-				expense.setCrew(crewBd);
-				
-				expenseService.create(expense);
+				crewService.createExpenseInCrew(crewBd.getId(), expense, splitwayId);
 				
 				return new ResponseEntity<String>("Gasto creado en el grupo", HttpStatus.CREATED);
 			}

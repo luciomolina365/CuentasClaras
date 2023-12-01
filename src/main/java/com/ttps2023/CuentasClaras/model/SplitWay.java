@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +19,7 @@ public abstract class SplitWay {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ManyToOne
     private Long id;
 	
 	@Column(name = "name", unique = true)

@@ -23,7 +23,6 @@ public class ExpenseService {
 	    }
 	
 	   
-	   
 		public void create(Expense expense) {
 			expenseRepository.save(expense);
 		}
