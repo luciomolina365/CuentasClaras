@@ -33,7 +33,7 @@ public class Payment {
 		this.done = done;
 		this.amount = amount;
 		this.date = date;
-//		this.belongsTo = belongsTo;
+		this.belongsTo = belongsTo;
 	}
 
 	public Payment() {}

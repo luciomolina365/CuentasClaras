@@ -46,7 +46,8 @@ public class Expense {
 	@OneToMany(mappedBy = "expense", fetch = FetchType.LAZY)
 	private List<Payment> paymentList;
 	
-//	private SplitWay splitway;
+	@ManyToOne
+	private SplitWay splitway;
 	
 	
 	

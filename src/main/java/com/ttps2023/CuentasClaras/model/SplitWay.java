@@ -1,5 +1,7 @@
 package com.ttps2023.CuentasClaras.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +26,11 @@ public abstract class SplitWay {
 	@Column(name = "name", unique = true)
 	private String name;
 	
+	
+	@OneToMany(mappedBy = "splitway")
+	private List<Expense> expensesList;
+	
+	
 	public SplitWay(String name) {
 		super();
 		this.name = name;
@@ -32,6 +40,6 @@ public abstract class SplitWay {
 	}
 	
 
-	public abstract void split();
+//	public abstract List<Payment> split();
 	
 }
