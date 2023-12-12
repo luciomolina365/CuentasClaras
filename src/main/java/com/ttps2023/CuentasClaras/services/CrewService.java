@@ -11,17 +11,21 @@ import org.springframework.stereotype.Service;
 import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.CrewCategory;
 import com.ttps2023.CuentasClaras.model.Expense;
+import com.ttps2023.CuentasClaras.model.SplitWay;
 import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.repositories.CrewRepository;
 import com.ttps2023.CuentasClaras.repositories.ExpenseRepository;
+import com.ttps2023.CuentasClaras.repositories.SplitWayRepository;
 
 @Service
 public class CrewService {
 
     private final CrewRepository crewRepository;
+    private final SplitWayRepository splitwayRepository;
 
-    public CrewService(CrewRepository crewRepository) {
+    public CrewService(CrewRepository crewRepository, SplitWayRepository splitwayRepository) {
         this.crewRepository = crewRepository;
+        this.splitwayRepository = splitwayRepository;
     }
     
 //    public Boolean existCrewName(String crewname) {
@@ -51,16 +55,17 @@ public class CrewService {
 		
 	}
 	
-	public void createExpenseInCrew(Long crewId, Expense expense) {
+	public void createExpenseInCrew(Long crewId, Expense expense, Long splitwayId) {
 		LocalDate today = LocalDate.now();
         Date date = Date.valueOf(today);
 		
 		Optional<Crew> crewQuery= crewRepository.findById(crewId);
 		Crew crewBD=crewQuery.orElse(null);
 		
+		SplitWay splitway = splitwayRepository.findById(splitwayId);
 		///aca hay q hacer la creacion de los gastos pero splitway no puedo hacerlo
 		
-		Expense expenseBd= new Expense(expense.getBelongsTo(), crewBD, expense.getAmount(), null, date, false, null);
+		Expense expenseBd= new Expense(expense.getBelongsTo(), crewBD, expense.getAmount(), null, date, false, null, splitway);
 		
 		crewBD.addExpense(expenseBd);
 		

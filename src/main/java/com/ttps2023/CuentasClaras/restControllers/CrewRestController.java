@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -51,8 +52,8 @@ public class CrewRestController {
 		
 		 @PutMapping("/{crewId}/update")
 		 public Crew updateCrew(@RequestBody Map<String, Object> crewRequest, @PathVariable("crewId") Long crewId) {
-			 String name =(String) crewRequest.get("name");
-			 Boolean isActive =(Boolean)crewRequest.get("active");
+			 String name = (String) crewRequest.get("name");
+			 Boolean isActive = (Boolean)crewRequest.get("active");
 			 return crewService.updateCrew(crewId, name, isActive);
 			}
 		 
@@ -68,9 +69,7 @@ public class CrewRestController {
 					return new ResponseEntity<String>("Datos del grupo incorrectos.", HttpStatus.FORBIDDEN);
 				}
 				
-				expense.setCrew(crewBd);
-				
-				expenseService.create(expense);
+				crewService.createExpenseInCrew(crewBd.getId(), expense, splitwayId);
 				
 				return new ResponseEntity<String>("Gasto creado en el grupo", HttpStatus.CREATED);
 			}
@@ -78,33 +77,32 @@ public class CrewRestController {
 		
 		 
 		 
-//			 @GetMapping("/{crewId}/expenseList")
-//			 	public ResponseEntity<String> showExpenseList (@PathVariable("crewId") Long crewId){
-//					crewService.getById(crewId);
-//					Optional<Crew> crewQuery = crewService.getById(crewId);
-//					Crew crewBD = crewQuery.orElse(null);									//controlar el null
-//					List<Expense> list=  crewBD.getExpenseList();
-//					
-//					//retornar la lista q nose como
-//
-//				}	 
+			 @GetMapping("/{crewId}/expenseList")
+			 	public List<Expense> showExpenseList (@PathVariable("crewId") Long crewId){
+					crewService.getById(crewId);
+					Optional<Crew> crewQuery = crewService.getById(crewId);
+					Crew crewBD = crewQuery.orElse(null);									//controlar el null
+					return crewBD.getExpenseList();															
+				}	 
 		 
-}
 
 
-//		 @PutMapping("/updateExpense/{expenseId}")    //no funciona
-//		 public Expense updateExpense(@RequestBody Map<String, Object> expenseRequest, @PathVariable("expenseId") Long expenseId) {
-//			 	
+
+		 @PutMapping("/updateExpense/{expenseId}")    //no funciona
+		 public Expense updateExpense(@RequestBody Map<String, Object> expenseRequest, @PathVariable("expenseId") Long expenseId) {
+			 	
 //			 
 //			 	System.out.println(expenseRequest.get("amount").getClass());
-//				Float amount = (Float) expenseRequest.get("amount"); // pongo amount solo pero se deberia todo
+//				Float amount = Float.par //expenseRequest.get("amount"); // pongo amount solo pero se deberia todo
 //				
-//				
-//				System.out.println(amount.getClass());
-//				
-//				return expenseService.updateExpense(expenseId,amount);
-//
-//			}
+				Date date = new Date((Long)expenseRequest.get("date"));
+						//(Date) expenseRequest.get("date");
+				
+				
+				return expenseService.updateExpense(expenseId, date);
+
+			}
+		 }
 
 
 

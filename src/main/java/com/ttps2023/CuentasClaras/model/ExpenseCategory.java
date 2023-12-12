@@ -2,6 +2,9 @@ package com.ttps2023.CuentasClaras.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +28,7 @@ public class ExpenseCategory {
 	
 	
 	@OneToMany(mappedBy = "category") 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Expense> expenses;
 
 	public ExpenseCategory(String category,String image) {

@@ -5,19 +5,27 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.ttps2023.CuentasClaras.model.User;
+import com.ttps2023.CuentasClaras.repositories.FriendRequestRepository;
 import com.ttps2023.CuentasClaras.repositories.UserRepository;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final FriendRequestRepository friendRequestRepository;
+    
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,FriendRequestRepository friendRequestRepository) {
         this.userRepository = userRepository;
+        this.friendRequestRepository= friendRequestRepository;
     }
 	
 	public Boolean exists(Long id) {
 		return userRepository.existsById(id);
+	}
+	
+	public Boolean existsByUsername(String username) {
+		return userRepository.existsByUsername(username);
 	}
 	
 	public void create(User user) {
@@ -32,3 +40,16 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 }
+	
+//	public void addFriendRequest(Long id,User user ){//le voy a poner string pero en duda si pasarle el user
+//		
+//	
+//	
+//	
+//	
+//}
+
+
+
+
+
