@@ -1,6 +1,6 @@
 package com.ttps2023.CuentasClaras.services;
 
-import java.time.LocalDate;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +26,10 @@ public class CrewService {
 	private final SplitWayRepository splitwayRepository;
 	private final ExpenseCategoryRepository expenseCategoryRepository;
 
-	public CrewService(CrewRepository crewRepository, SplitWayRepository splitwayRepository) {
+	public CrewService(CrewRepository crewRepository, SplitWayRepository splitwayRepository, ExpenseCategoryRepository expenseCategoryRepository) {
 		this.crewRepository = crewRepository;
 		this.splitwayRepository = splitwayRepository;
-		
+		this.expenseCategoryRepository = expenseCategoryRepository;
 	}
 
 //    public Boolean existCrewName(String crewname) {
