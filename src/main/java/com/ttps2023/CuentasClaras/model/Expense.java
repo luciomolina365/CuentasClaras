@@ -1,6 +1,5 @@
 package com.ttps2023.CuentasClaras.model;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -18,46 +17,39 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-
-
 @Entity
-@Table(name="expense")
+@Table(name = "expense")
 public class Expense {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@Column(name = "isPaid")
 	private Boolean isPaid;
-	
+
 	@Column(name = "amount")
 	private Float amount;
-	
-	
-	
+
 	@Column(name = "date")
 	private Date date;
-	
+
 	@ManyToOne
 	private User belongsTo;
-	
+
 	@ManyToOne
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Crew crew;
-	
+
 	@ManyToOne
 	private ExpenseCategory category;
-	
+
 	@OneToMany(mappedBy = "expense", fetch = FetchType.LAZY)
 	private List<Payment> paymentList;
-	
+
 	@ManyToOne
 	private SplitWay splitway;
-	
-	
-	
-	
+
 	public SplitWay getSplitway() {
 		return splitway;
 	}
@@ -66,8 +58,8 @@ public class Expense {
 		this.splitway = splitway;
 	}
 
-	public  Expense() {
-		
+	public Expense() {
+
 	}
 
 	public Expense(User belongsTo, Crew crew, Float amount, ExpenseCategory category, Date date, Boolean isPaid,
@@ -146,13 +138,5 @@ public class Expense {
 	public void setPaymentList(List<Payment> paymentList) {
 		this.paymentList = paymentList;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
