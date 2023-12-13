@@ -1,6 +1,7 @@
 package com.ttps2023.CuentasClaras.model;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,7 +26,7 @@ public class CrewCategory {
 	private String image;
 	
 
-	@OneToMany(mappedBy = "category") 
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL) 
 	private List<Crew> crews;
 
 	public CrewCategory(String name,String image) {

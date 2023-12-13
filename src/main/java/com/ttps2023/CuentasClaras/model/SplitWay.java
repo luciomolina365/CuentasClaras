@@ -3,6 +3,7 @@ package com.ttps2023.CuentasClaras.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -18,7 +19,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "splitWay_type")
+@DiscriminatorColumn (name = "split_way_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class SplitWay {
 
 	@Id
@@ -30,7 +31,7 @@ public abstract class SplitWay {
 	private String name;
 	
 	
-	@OneToMany(mappedBy = "splitway")
+	@OneToMany(mappedBy = "splitway", cascade = CascadeType.ALL)
 	private List<Expense> expensesList;
 	
 	

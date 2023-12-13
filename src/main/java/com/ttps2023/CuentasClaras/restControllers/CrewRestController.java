@@ -93,7 +93,7 @@ public class CrewRestController {
 		
 		Date date = new Date();
 
-		Float amount = (Float) request.get("amount");
+		Float amount = ((Double) request.get("amount")).floatValue();
 
 		Expense expense = new Expense(user, crew, amount, category, date, false, null, splitway);
 

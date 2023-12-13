@@ -2,6 +2,7 @@ package com.ttps2023.CuentasClaras.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,10 +34,10 @@ public class Crew {
 	@ManyToOne
 	private CrewCategory category;
  	
- 	@ManyToMany(mappedBy = "crewList")
+ 	@ManyToMany(mappedBy = "crewList", cascade = CascadeType.ALL)
  	private List<User> membersList;
  	 	
- 	@OneToMany(mappedBy = "crew")
+ 	@OneToMany(mappedBy = "crew", cascade = CascadeType.ALL)
 	private List<Expense> expenseList;
  	
 	public Crew(String groupName, Boolean isPrivate, CrewCategory category, List<User> membersList) {

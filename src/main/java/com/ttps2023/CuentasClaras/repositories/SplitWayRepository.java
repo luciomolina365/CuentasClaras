@@ -10,8 +10,11 @@ import org.springframework.data.repository.query.Param;
 import com.ttps2023.CuentasClaras.model.SplitWay;
 
 public interface SplitWayRepository extends JpaRepository<SplitWay, Long> {
-	// public SplitWay findByName(String name);
 	
-	@Query("SELECT sw FROM SplitWay sw WHERE sw.id = :splitWayId")
-    public Map<String, Object> findSplitWayById(@Param("splitWayId") Long splitWayId);
+	@Query(value = "SELECT split_way_type FROM split_way WHERE splitway_id = :splitWayId", nativeQuery = true)
+	public String findSplitWayTypeById(@Param("splitWayId") Long splitWayId);
+
+
+
+	
 }

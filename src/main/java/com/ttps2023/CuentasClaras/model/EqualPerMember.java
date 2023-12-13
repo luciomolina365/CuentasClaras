@@ -47,14 +47,13 @@ public class EqualPerMember extends SplitWay{
             payment.setBelongsTo(member);
             payments.add(payment);
 
-
-            member.setYouOwe(member.getYouOwe() + amountPerMember); //Actualizar youOwe de cada member?
+//            member.setYouOwe(member.getYouOwe() + amountPerMember); //Actualizar youOwe de cada member?
         }
 
        
         
-        User owner = expense.getBelongsTo();
-        owner.setYouAreOwed(owner.getYouAreOwed() + (amount - amountPerMember));  //Actualizar youAreOwed del dueño de expense?
+//        User owner = expense.getBelongsTo();
+//        owner.setYouAreOwed(owner.getYouAreOwed() + (amount - amountPerMember));  //Actualizar youAreOwed del dueño de expense?
         
         return payments;
     }

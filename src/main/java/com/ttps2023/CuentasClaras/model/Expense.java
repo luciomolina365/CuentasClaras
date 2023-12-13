@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,7 +46,7 @@ public class Expense {
 	@ManyToOne
 	private ExpenseCategory category;
 
-	@OneToMany(mappedBy = "expense", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "expense", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Payment> paymentList;
 
 	@ManyToOne

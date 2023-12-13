@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -65,10 +66,10 @@ public class User {
 	@OneToMany(mappedBy = "user") //, cascade = CascadeType.REMOVE agrego cascade¿?
 	private List<FriendRequest> friendRequestList;
 	
-	@OneToMany(mappedBy = "belongsTo") 
+	@OneToMany(mappedBy = "belongsTo", cascade = CascadeType.ALL) 
 	private List<Payment> paymentList;
 	
-	@OneToMany(mappedBy = "belongsTo") 
+	@OneToMany(mappedBy = "belongsTo", cascade = CascadeType.ALL) 
 	private List<Expense> expenseList;
 	
 	public User(String username, String lastname, String name, String email, String pass) {

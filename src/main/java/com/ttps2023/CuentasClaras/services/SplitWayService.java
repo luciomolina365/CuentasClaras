@@ -11,6 +11,8 @@ import com.ttps2023.CuentasClaras.model.PercentagePerMember;
 import com.ttps2023.CuentasClaras.model.SplitWay;
 import com.ttps2023.CuentasClaras.repositories.SplitWayRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class SplitWayService {
 	private final SplitWayRepository splitWayRepository;
@@ -20,60 +22,41 @@ public class SplitWayService {
 	}
 
 	public SplitWay getById(Long id) {
-	    Map<String, Object> auxSplitway = splitWayRepository.findSplitWayById(id);
+		
+		Optional<SplitWay> splitWayOptional = splitWayRepository.findById(id);
 
-	    String splitWayType = (String) auxSplitway.get("split_way_type");
-	    String splitWayName = (String) auxSplitway.get("name");
-
-	    return createSplitWay(splitWayType, splitWayName);
-	}
-
-	private SplitWay createSplitWay(String splitWayType, String splitWayName) {
-	    switch (splitWayType) {
-	        case "AmountPerMember":
-	            return new AmountPerMember(splitWayName);
-
-	        case "EqualPerMember":
-	            return new EqualPerMember(splitWayName);
-
-	        case "PercentagePerMember":
-	            return new PercentagePerMember(splitWayName);
-
-	        default:
-	            
-	            throw new IllegalArgumentException("Tipo de SplitWay no válido: " + splitWayType);
+	    if (splitWayOptional.isPresent()) {
+	        return splitWayOptional.get();
+	    } else {
+	        throw new EntityNotFoundException("SplitWay no encontrado con ID: " + id);
 	    }
 	}
 
 
-	public void create(String splitwayType) {
+	
+//    public SplitWay getById(Long id) {
+//        String splitWayType = splitWayRepository.findSplitWayTypeById(id);
+//
+//        if (splitWayType != null) {
+//            switch (splitWayType) {
+//                
+//            	case "AmountPerMember":
+//                    return new AmountPerMember("AmountPerMember");
+//                
+//                case "EqualPerMember":
+//                    return new EqualPerMember("EqualPerMember");
+//                
+//                case "PercentagePerMember":
+//                    return new PercentagePerMember("PercentagePerMember");
+//                    
+//                default:
+//                    throw new IllegalArgumentException("Tipo de SplitWay no reconocido: " + splitWayType);
+//            }
+//        } else {
+//            throw new EntityNotFoundException("SplitWay no encontrado con ID: " + id);
+//        }
+//    }
 
-		SplitWay splitway = null;
-		if (splitwayType.equals("AmountPerMember")) {
-			splitway = new AmountPerMember(splitwayType);
-		}
-		if (splitwayType.equals("EqualPerMember")) {
-			splitway = new EqualPerMember(splitwayType);
-		}
-		if (splitwayType.equals("PercetagePerMember")) {
-			splitway = new PercentagePerMember(splitwayType);
-		}
-
-		splitWayRepository.save(splitway);
-	}
-
-//	private final ExpenseRepository expenseRepository;
-//	private
-//	
-//	
-//	   public SplitWayService(ExpenseRepository expenseRepository) {
-//	        this.expenseRepository = expenseRepository;
-//	    }
-//	
-//	public SplitWayService() {
-//		
-//		
-//		public
 
 	// recibo la lista de usuarios q van a estar dentro de este gasto tambien pasar
 	// splitway y expense

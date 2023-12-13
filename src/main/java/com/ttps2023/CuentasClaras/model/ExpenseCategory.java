@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class ExpenseCategory {
 	private String image;
 	
 	
-	@OneToMany(mappedBy = "category") 
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL) 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Expense> expenses;
 

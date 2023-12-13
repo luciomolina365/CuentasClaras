@@ -33,8 +33,6 @@ public class CrewService {
 		this.expenseCategoryRepository = expenseCategoryRepository;
 	}
 
-//    public Boolean existCrewName(String crewname) {
-//		 return crewRepository.findByCrewName(crewname).isPresent()) }
 
 	public Boolean exists(Long id) {
 		return crewRepository.existsById(id);
