@@ -8,36 +8,87 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.services.UserService;
+import com.ttps2023.CuentasClaras.filter.*;
 
 import java.util.Map;
 import java.util.Optional;
+
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import com.ttps2023.CuentasClaras.services.TokenServices;
+
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
 
 	private final UserService userService;
+	private final TokenServices tokenServices;
 
-	public UserRestController(UserService userService) {
+	public UserRestController(UserService userService, TokenServices tokenServices) {
 		this.userService = userService;
+		this.tokenServices=tokenServices;
 	}
 
-	@GetMapping("/hola")
-	public ResponseEntity<String> test() {
-		return new ResponseEntity<String>("Hola test", HttpStatus.OK);
-	}
+	private final int EXPIRATION_IN_SEC = 100; // 10 segs!!
+	
+//	@PostMapping(path = "/auth")
+//	public ResponseEntity<?> authenticate(@RequestBody Map<String, String> credentials) { //el signo de pregunta CAMBIAR
+//	    String username = credentials.get("username");
+//	    String password = credentials.get("password");
+//
+//	    try {
+//	        Optional<User> userQuery = userService.authenticateWithUsernameAndPass(username, password);
+//	        
+//	        if (userQuery.isPresent()) {
+//	            String token = TokenServices.generateToken(username, EXPIRATION_IN_SEC);
+//	            return ResponseEntity.ok(new Credentials(token, EXPIRATION_IN_SEC, username));
+//	        } else {
+//	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+//	        }
+//	    } catch (Exception e) {
+//	        // Manejar excepciones adecuadamente, loguearlas, etc.
+//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error durante la autenticación");
+//	    }
+//	}
+	
+	
+	
+	
+	  @PostMapping("/login")
+	    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) { //el signo de pregunta CAMBIAR
+		    String username = credentials.get("username");
+		    String password = credentials.get("pass");
+		    
+		    	System.out.println(username);
+		    	System.out.println(password);
+		        Optional<User> userQuery = userService.authenticateWithUsernameAndPass(username, password);
+		        User user = userQuery.orElse(null); 
+		        System.out.println(user);
+		        if (user != null) {
+
+	            // Generar token
+	       
+	            String token = tokenServices.generateToken(user.getUsername(),EXPIRATION_IN_SEC);
+
+	            // Devolver el token en la respuesta
+	            return ResponseEntity.ok(new Credentials(token, EXPIRATION_IN_SEC, user.getUsername()));
+	            }
+		        else {
+		        	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+	        }
+	    }
+	
+
 
 	@PostMapping("/create") 
-	public ResponseEntity<String> createUser(@RequestBody User user) {    // ver @Valid ///////////////////////////////////////
+	public ResponseEntity<String> createUser(@RequestBody User user) {    // @Validated envia un internal sever error 
 		
 		if (userService.existsByUsername(user.getUsername())) {											
 			return new ResponseEntity<String>("Usuario ya existe", HttpStatus.CONFLICT);
