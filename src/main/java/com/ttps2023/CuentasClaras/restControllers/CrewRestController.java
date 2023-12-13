@@ -1,36 +1,31 @@
 package com.ttps2023.CuentasClaras.restControllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.Expense;
 import com.ttps2023.CuentasClaras.model.ExpenseCategory;
+import com.ttps2023.CuentasClaras.model.SplitWay;
 import com.ttps2023.CuentasClaras.model.User;
-import com.ttps2023.CuentasClaras.repositories.ExpenseRepository;
-import com.ttps2023.CuentasClaras.repositories.UserRepository;
 import com.ttps2023.CuentasClaras.services.CrewService;
 import com.ttps2023.CuentasClaras.services.ExpenseCategoryService;
 import com.ttps2023.CuentasClaras.services.ExpenseService;
+import com.ttps2023.CuentasClaras.services.SplitWayService;
 import com.ttps2023.CuentasClaras.services.UserService;
-
-import jakarta.persistence.Column;
 
 @RestController
 @RequestMapping(value = "/crew", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,13 +35,16 @@ public class CrewRestController {
 	private final ExpenseService expenseService;
 	private final UserService userService;
 	private final ExpenseCategoryService expenseCategoryService;
+	private final SplitWayService splitwayService;
 
-	public CrewRestController(CrewService crewService, ExpenseService expenseService, UserService userService, ExpenseCategoryService expenseCategoryService) {
+	public CrewRestController(CrewService crewService, ExpenseService expenseService, UserService userService, ExpenseCategoryService expenseCategoryService, SplitWayService splitwayService) {
 	    this.crewService = crewService;
 	    this.expenseService = expenseService;
 	    this.userService = userService;
 	    this.expenseCategoryService = expenseCategoryService;
+	    this.splitwayService = splitwayService;
 	}
+
 
 
 	@PostMapping("/create")
@@ -65,20 +63,34 @@ public class CrewRestController {
 	@PostMapping("/{crewId}/createExpense")
 			public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request, @PathVariable("crewId") Long crewId) {
 			
+				//tener en cuenta los null, por ahora hago que funcione la funcionalidad
+		
+		
 			 	Optional<User> userQuery = userService.getById((Long)request.get("belongsToId"));
 			 	User user = userQuery.orElse(null);
-			 	
-			 	Optional<ExpenseCategory> categoryQuery = expenseCategoryService.getById((Long)request.get("categoryId"));
-			 	ExpenseCategory category = categoryQuery.orElse(null);
-			 
-			 	//Expense expense = new Expense(belongsTo, crew, amount, category, date, isPaid, paymentList, splitway)
 			 
 			 
 			 	Optional<Crew> crewQuery = crewService.getById(crewId);
-				Crew crewBd = crewQuery.orElse(null);
-				if (crewBd == null) {
+				Crew crew = crewQuery.orElse(null);
+				if (crew == null) {
 					return new ResponseEntity<String>("Datos del grupo incorrectos.", HttpStatus.FORBIDDEN);
 				}
+				
+				Optional<ExpenseCategory> categoryQuery = expenseCategoryService.getById((Long)request.get("categoryId"));
+				ExpenseCategory category = categoryQuery.orElse(null);
+				
+				Date date = new Date(); 
+				
+				Optional<SplitWay> splitwayQuery = splitwayService.getById((Long)request.get("splitwayId"));
+				SplitWay splitway = splitwayQuery.orElse(null);
+				
+				Float amount = (Float)request.get("amount");
+				
+				Expense expense = new Expense(user, crew, amount, category, date, false, null, splitway);
+				
+				
+				
+				
 				
 //				crewService.createExpenseInCrew(crewBd.getId(), expense, splitwayId);
 				
