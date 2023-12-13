@@ -37,15 +37,14 @@ public class CrewRestController {
 	private final ExpenseCategoryService expenseCategoryService;
 	private final SplitWayService splitwayService;
 
-	public CrewRestController(CrewService crewService, ExpenseService expenseService, UserService userService, ExpenseCategoryService expenseCategoryService, SplitWayService splitwayService) {
-	    this.crewService = crewService;
-	    this.expenseService = expenseService;
-	    this.userService = userService;
-	    this.expenseCategoryService = expenseCategoryService;
-	    this.splitwayService = splitwayService;
+	public CrewRestController(CrewService crewService, ExpenseService expenseService, UserService userService,
+			ExpenseCategoryService expenseCategoryService, SplitWayService splitwayService) {
+		this.crewService = crewService;
+		this.expenseService = expenseService;
+		this.userService = userService;
+		this.expenseCategoryService = expenseCategoryService;
+		this.splitwayService = splitwayService;
 	}
-
-
 
 	@PostMapping("/create")
 	public ResponseEntity<String> createCrew(@RequestBody Crew crew) {
@@ -61,41 +60,47 @@ public class CrewRestController {
 	}
 
 	@PostMapping("/{crewId}/createExpense")
-			public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request, @PathVariable("crewId") Long crewId) {
-			
-				//tener en cuenta los null, por ahora hago que funcione la funcionalidad
+	public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request, @PathVariable("crewId") Long crewId) {
 		
+		Optional<User> userQuery = userService.getById(Long.valueOf((Integer)request.get("belongsToId")));
+		User user = userQuery.orElse(null);
+
+		if (user == null) {
+			return new ResponseEntity<String>("Usuario no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
+		}
+
+		Optional<Crew> crewQuery = crewService.getById(crewId);
+		Crew crew = crewQuery.orElse(null);
+
+		if (crew == null) {
+			return new ResponseEntity<String>("Grupo no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
+		}
+
+		Optional<ExpenseCategory> categoryQuery = expenseCategoryService.getById(Long.valueOf((Integer)request.get("belongsToId")));
+		ExpenseCategory category = categoryQuery.orElse(null);
+
+		if (category == null) {
+			return new ResponseEntity<String>("Categoría de gasto no encontrada con el ID proporcionado.", HttpStatus.NOT_FOUND);
+		}
+
+
+		SplitWay splitway = splitwayService.getById(Long.valueOf((Integer)request.get("splitwayId")));
+
+		if (splitway == null) {
+			return new ResponseEntity<String>("Método de reparto no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
+		}
+
 		
-			 	Optional<User> userQuery = userService.getById((Long)request.get("belongsToId"));
-			 	User user = userQuery.orElse(null);
-			 
-			 
-			 	Optional<Crew> crewQuery = crewService.getById(crewId);
-				Crew crew = crewQuery.orElse(null);
-				if (crew == null) {
-					return new ResponseEntity<String>("Datos del grupo incorrectos.", HttpStatus.FORBIDDEN);
-				}
-				
-				Optional<ExpenseCategory> categoryQuery = expenseCategoryService.getById((Long)request.get("categoryId"));
-				ExpenseCategory category = categoryQuery.orElse(null);
-				
-				Date date = new Date(); 
-				
-				Optional<SplitWay> splitwayQuery = splitwayService.getById((Long)request.get("splitwayId"));
-				SplitWay splitway = splitwayQuery.orElse(null);
-				
-				Float amount = (Float)request.get("amount");
-				
-				Expense expense = new Expense(user, crew, amount, category, date, false, null, splitway);
-				
-				
-				
-				
-				
-//				crewService.createExpenseInCrew(crewBd.getId(), expense, splitwayId);
-				
-				return new ResponseEntity<String>("Gasto creado en el grupo", HttpStatus.CREATED);
-			}
+		Date date = new Date();
+
+		Float amount = (Float) request.get("amount");
+
+		Expense expense = new Expense(user, crew, amount, category, date, false, null, splitway);
+
+		crewService.createExpenseInCrew(crew, expense);
+
+		return new ResponseEntity<String>("Gasto creado en el grupo", HttpStatus.CREATED);
+	}
 
 	@GetMapping("/{crewId}/expenseList")
 	public List<Expense> showExpenseList(@PathVariable("crewId") Long crewId) {

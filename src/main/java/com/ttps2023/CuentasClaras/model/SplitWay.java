@@ -1,5 +1,6 @@
 package com.ttps2023.CuentasClaras.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -22,8 +23,8 @@ public abstract class SplitWay {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ManyToOne
-    private Long id;
+	@Column(name = "splitway_id")
+	private Long id;
 	
 	@Column(name = "name", unique = true)
 	private String name;
@@ -42,6 +43,8 @@ public abstract class SplitWay {
 	}
 	
 
-//	public abstract List<Payment> split();
 	
+    public abstract List<Payment> split(Expense expense, Crew crew);
+    
+    public abstract List<Payment> split();
 }

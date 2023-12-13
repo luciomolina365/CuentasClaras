@@ -36,13 +36,10 @@ public class UserRestController {
 		return new ResponseEntity<String>("Hola test", HttpStatus.OK);
 	}
 
-	@PostMapping("/create")
-	public ResponseEntity<String> createUser(@RequestBody User user) {
-//		if (userService.exists(user.getId())) {													//en vez de id no seria username ej
-//			return new ResponseEntity<String>("Usuario ya existe", HttpStatus.CONFLICT);
-//		}
+	@PostMapping("/create") 
+	public ResponseEntity<String> createUser(@RequestBody User user) {    // ver @Valid ///////////////////////////////////////
 		
-		if (userService.existsByUsername(user.getUsername())) {													//en vez de id no seria username ej
+		if (userService.existsByUsername(user.getUsername())) {											
 			return new ResponseEntity<String>("Usuario ya existe", HttpStatus.CONFLICT);
 		}
 

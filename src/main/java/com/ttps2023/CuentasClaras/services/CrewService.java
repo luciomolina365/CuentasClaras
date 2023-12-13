@@ -12,6 +12,7 @@ import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.CrewCategory;
 import com.ttps2023.CuentasClaras.model.Expense;
 import com.ttps2023.CuentasClaras.model.ExpenseCategory;
+import com.ttps2023.CuentasClaras.model.Payment;
 import com.ttps2023.CuentasClaras.model.SplitWay;
 import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.repositories.CrewRepository;
@@ -58,27 +59,16 @@ public class CrewService {
 
 	}
 
-	public void createExpenseInCrew(Long crewId, Expense expense, Long splitwayId, Long categoryId) {
+	public void createExpenseInCrew(Crew crew, Expense expense) {
 
-		Date date = new Date();
-
-		Optional<Crew> crewQuery = crewRepository.findById(crewId);
-		Crew crewBD = crewQuery.orElse(null);
+		SplitWay splitway = expense.getSplitway();
 		
+		List<Payment> paymentList = splitway.split(expense, crew);
+		expense.setPaymentList(paymentList);
 		
-		Optional<ExpenseCategory> categoryQuery = expenseCategoryRepository.findById(categoryId);
-		ExpenseCategory category = categoryQuery.orElse(null);
-
-		Optional<SplitWay> splitwayQuery = splitwayRepository.findById(splitwayId);
-		SplitWay splitway = splitwayQuery.orElse(null);
-		/// aca hay q hacer la creacion de los gastos pero splitway no puedo hacerlo
+		crew.addExpense(expense);
 		
-		
-		Expense expenseBd = new Expense(expense.getBelongsTo(), crewBD, expense.getAmount(), category, date, false, null, splitway);
-
-		crewBD.addExpense(expenseBd);
-
-		crewRepository.save(crewBD);
+		crewRepository.save(crew);
 	}
 
 }

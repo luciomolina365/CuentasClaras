@@ -21,15 +21,17 @@ public class EqualPerMember extends SplitWay{
 		super();
 	}
 
-//	public void split() {
-//		
-//	}
+	public List<Payment> split() {
+    	return new ArrayList<Payment>();
+	}
 	
 	
-    public List<Payment> split(Expense expense, List<User> membersList) {
+    public List<Payment> split(Expense expense, Crew crew) {
         Float amount = expense.getAmount();
 
-        if (membersList == null || membersList.isEmpty() || amount <= 0) {
+        List<User> membersList = crew.getMembersList();
+        
+        if (membersList == null || membersList.isEmpty() || amount <= 0) { //DATOS invalidos
             return new ArrayList<>();	//O exception?
         }
 
@@ -43,17 +45,16 @@ public class EqualPerMember extends SplitWay{
             payment.setAmount(amountPerMember);
             payment.setDate(currentDate);
             payment.setBelongsTo(member);
-//            payment.setExpense(expense);  
             payments.add(payment);
 
 
-//            member.setYouOwe(member.getYouOwe() + amountPerMember); //Actualizar youOwe de cada member?
+            member.setYouOwe(member.getYouOwe() + amountPerMember); //Actualizar youOwe de cada member?
         }
 
        
         
-//        User owner = expense.getBelongsTo();
-//        owner.setYouAreOwed(owner.getYouAreOwed() + (amount - amountPerMember));  //Actualizar youAreOwed del dueño de expense?
+        User owner = expense.getBelongsTo();
+        owner.setYouAreOwed(owner.getYouAreOwed() + (amount - amountPerMember));  //Actualizar youAreOwed del dueño de expense?
         
         return payments;
     }

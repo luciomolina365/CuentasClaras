@@ -29,7 +29,7 @@ public class Payment {
 		
 	@ManyToOne
 	@JsonProperty(access = Access.WRITE_ONLY)
-//  @JoinColumn(name = "expense_id")
+    @JoinColumn(name = "expense_id")
     private Expense expense;
 	
 	public Payment(Boolean done, Float amount, Date date, User belongsTo) {
