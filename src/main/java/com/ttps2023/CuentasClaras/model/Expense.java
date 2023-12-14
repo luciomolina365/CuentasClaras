@@ -46,20 +46,12 @@ public class Expense {
 	@ManyToOne
 	private ExpenseCategory category;
 
-	@OneToMany(mappedBy = "expense", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Payment> paymentList;
 
 	@ManyToOne
 	@JoinColumn(name = "splitway_id")
 	private SplitWay splitway;
-
-	public SplitWay getSplitway() {
-		return splitway;
-	}
-
-	public void setSplitway(SplitWay splitway) {
-		this.splitway = splitway;
-	}
 
 	public Expense() {
 
@@ -142,4 +134,11 @@ public class Expense {
 		this.paymentList = paymentList;
 	}
 
+	public SplitWay getSplitway() {
+		return splitway;
+	}
+
+	public void setSplitway(SplitWay splitway) {
+		this.splitway = splitway;
+	}
 }

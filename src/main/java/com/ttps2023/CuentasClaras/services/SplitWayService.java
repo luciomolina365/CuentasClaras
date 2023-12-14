@@ -1,12 +1,16 @@
 package com.ttps2023.CuentasClaras.services;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.ttps2023.CuentasClaras.model.AmountPerMember;
+import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.EqualPerMember;
+import com.ttps2023.CuentasClaras.model.Expense;
+import com.ttps2023.CuentasClaras.model.Payment;
 import com.ttps2023.CuentasClaras.model.PercentagePerMember;
 import com.ttps2023.CuentasClaras.model.SplitWay;
 import com.ttps2023.CuentasClaras.repositories.SplitWayRepository;
@@ -21,42 +25,18 @@ public class SplitWayService {
 		this.splitWayRepository = splitWayRepository;
 	}
 
-	public SplitWay getById(Long id) {
-		
-		Optional<SplitWay> splitWayOptional = splitWayRepository.findById(id);
-
-	    if (splitWayOptional.isPresent()) {
-	        return splitWayOptional.get();
-	    } else {
-	        throw new EntityNotFoundException("SplitWay no encontrado con ID: " + id);
-	    }
+	public Optional<SplitWay> getById(Long id) {
+		return splitWayRepository.findById(id);
 	}
-
-
 	
-//    public SplitWay getById(Long id) {
-//        String splitWayType = splitWayRepository.findSplitWayTypeById(id);
-//
-//        if (splitWayType != null) {
-//            switch (splitWayType) {
-//                
-//            	case "AmountPerMember":
-//                    return new AmountPerMember("AmountPerMember");
-//                
-//                case "EqualPerMember":
-//                    return new EqualPerMember("EqualPerMember");
-//                
-//                case "PercentagePerMember":
-//                    return new PercentagePerMember("PercentagePerMember");
-//                    
-//                default:
-//                    throw new IllegalArgumentException("Tipo de SplitWay no reconocido: " + splitWayType);
-//            }
-//        } else {
-//            throw new EntityNotFoundException("SplitWay no encontrado con ID: " + id);
-//        }
-//    }
-
+	public List<Payment> expenseSplit(Expense expense, Crew crew) {
+		
+		SplitWay splitway = expense.getSplitway();
+		
+		List<Payment> paymentList = splitway.split(expense, crew);
+		
+		return paymentList;
+	}
 
 	// recibo la lista de usuarios q van a estar dentro de este gasto tambien pasar
 	// splitway y expense

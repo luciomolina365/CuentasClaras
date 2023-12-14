@@ -1,6 +1,8 @@
 package com.ttps2023.CuentasClaras.restControllers;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -47,8 +49,32 @@ public class CrewRestController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<String> createCrew(@RequestBody Crew crew) {
+	public ResponseEntity<String> createCrew(@RequestBody Map<String, Object> request) {
+
+
+		
+		System.out.println(request.get("membersList"));
+		
+		
+		
+		List<User> membersList = null;
+		Optional<User> userQuery;
+		for (Number id : (List<Number>) request.get("membersList")) {
+			userQuery = userService.getById((Long)id);
+			User user = userQuery.orElse(null);
+			if (user == null) {
+				return new ResponseEntity<String>("Usuario no encontrado con el ID proporcionado: " + id , HttpStatus.NOT_FOUND);
+			}		
+			membersList.add(user);
+		}
+		
+		String name = (String) request.get("name");
+		Boolean isPrivate = (Boolean) request.get("isPrivate");
+		
+		Crew crew = new Crew(name, isPrivate, null, membersList);
+
 		crewService.create(crew);
+
 		return new ResponseEntity<String>("Grupo creado", HttpStatus.CREATED);
 	}
 
@@ -60,9 +86,10 @@ public class CrewRestController {
 	}
 
 	@PostMapping("/{crewId}/createExpense")
-	public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request, @PathVariable("crewId") Long crewId) {
-		
-		Optional<User> userQuery = userService.getById(Long.valueOf((Integer)request.get("belongsToId")));
+	public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request,
+			@PathVariable("crewId") Long crewId) {
+
+		Optional<User> userQuery = userService.getById(Long.valueOf((Integer) request.get("belongsToId")));
 		User user = userQuery.orElse(null);
 
 		if (user == null) {
@@ -76,21 +103,23 @@ public class CrewRestController {
 			return new ResponseEntity<String>("Grupo no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
 		}
 
-		Optional<ExpenseCategory> categoryQuery = expenseCategoryService.getById(Long.valueOf((Integer)request.get("belongsToId")));
+		Optional<ExpenseCategory> categoryQuery = expenseCategoryService
+				.getById(Long.valueOf((Integer) request.get("belongsToId")));
 		ExpenseCategory category = categoryQuery.orElse(null);
 
 		if (category == null) {
-			return new ResponseEntity<String>("Categoría de gasto no encontrada con el ID proporcionado.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Categoría de gasto no encontrada con el ID proporcionado.",
+					HttpStatus.NOT_FOUND);
 		}
 
-
-		SplitWay splitway = splitwayService.getById(Long.valueOf((Integer)request.get("splitwayId")));
+		Optional<SplitWay> splitwayQuery = splitwayService.getById(Long.valueOf((Integer) request.get("splitwayId")));
+		SplitWay splitway = splitwayQuery.orElse(null);
 
 		if (splitway == null) {
-			return new ResponseEntity<String>("Método de reparto no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Método de reparto no encontrado con el ID proporcionado.",
+					HttpStatus.NOT_FOUND);
 		}
 
-		
 		Date date = new Date();
 
 		Float amount = ((Double) request.get("amount")).floatValue();

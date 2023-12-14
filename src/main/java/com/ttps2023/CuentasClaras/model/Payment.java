@@ -27,9 +27,9 @@ public class Payment {
 	@ManyToOne
 	private User belongsTo;
 		
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonProperty(access = Access.WRITE_ONLY)
-    @JoinColumn(name = "expense_id")
+//    @JoinColumn(name = "id")
     private Expense expense;
 	
 	public Payment(Boolean done, Float amount, Date date, User belongsTo) {

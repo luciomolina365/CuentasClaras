@@ -1,38 +1,28 @@
 package com.ttps2023.CuentasClaras.services;
 
-
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ttps2023.CuentasClaras.model.Crew;
-import com.ttps2023.CuentasClaras.model.CrewCategory;
 import com.ttps2023.CuentasClaras.model.Expense;
-import com.ttps2023.CuentasClaras.model.ExpenseCategory;
 import com.ttps2023.CuentasClaras.model.Payment;
-import com.ttps2023.CuentasClaras.model.SplitWay;
-import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.repositories.CrewRepository;
-import com.ttps2023.CuentasClaras.repositories.ExpenseCategoryRepository;
-import com.ttps2023.CuentasClaras.repositories.ExpenseRepository;
-import com.ttps2023.CuentasClaras.repositories.SplitWayRepository;
 
 @Service
 public class CrewService {
 
 	private final CrewRepository crewRepository;
-	private final SplitWayRepository splitwayRepository;
-	private final ExpenseCategoryRepository expenseCategoryRepository;
 
-	public CrewService(CrewRepository crewRepository, SplitWayRepository splitwayRepository, ExpenseCategoryRepository expenseCategoryRepository) {
+	@Autowired
+	private SplitWayService splitwayService;
+
+	public CrewService(CrewRepository crewRepository) {
 		this.crewRepository = crewRepository;
-		this.splitwayRepository = splitwayRepository;
-		this.expenseCategoryRepository = expenseCategoryRepository;
 	}
-
 
 	public Boolean exists(Long id) {
 		return crewRepository.existsById(id);
@@ -56,16 +46,20 @@ public class CrewService {
 		return crewRepository.save(crewBD);
 
 	}
-
+	
+	@Transactional
 	public void createExpenseInCrew(Crew crew, Expense expense) {
 
-		SplitWay splitway = expense.getSplitway();
-		
-		List<Payment> paymentList = splitway.split(expense, crew);
+
+		List<Payment> paymentList = splitwayService.expenseSplit(expense, crew);
+
 		expense.setPaymentList(paymentList);
 		
-		crew.addExpense(expense);
+		// Debugging logs
+	    System.out.println("Payment List: " + paymentList);
 		
+		crew.addExpense(expense);
+
 		crewRepository.save(crew);
 	}
 

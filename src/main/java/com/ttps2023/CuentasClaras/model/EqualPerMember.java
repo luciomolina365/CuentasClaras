@@ -35,6 +35,9 @@ public class EqualPerMember extends SplitWay{
             return new ArrayList<>();	//O exception?
         }
 
+        //// Debugging logs
+        System.out.println("Members List: " + membersList);
+        
         Float amountPerMember = amount / membersList.size();
         Date currentDate = new Date();  
 
@@ -46,15 +49,10 @@ public class EqualPerMember extends SplitWay{
             payment.setDate(currentDate);
             payment.setBelongsTo(member);
             payments.add(payment);
-
 //            member.setYouOwe(member.getYouOwe() + amountPerMember); //Actualizar youOwe de cada member?
-        }
-
-       
-        
+        }        
 //        User owner = expense.getBelongsTo();
-//        owner.setYouAreOwed(owner.getYouAreOwed() + (amount - amountPerMember));  //Actualizar youAreOwed del dueño de expense?
-        
+//        owner.setYouAreOwed(owner.getYouAreOwed() + (amount - amountPerMember));  //Actualizar youAreOwed del dueño de expense?        
         return payments;
     }
 }
