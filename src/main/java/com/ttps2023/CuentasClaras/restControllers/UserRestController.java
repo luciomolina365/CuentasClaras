@@ -66,8 +66,6 @@ public class UserRestController {
 		    String username = credentials.get("username");
 		    String password = credentials.get("pass");
 		    
-		    	System.out.println(username);
-		    	System.out.println(password);
 		        Optional<User> userQuery = userService.authenticateWithUsernameAndPass(username, password);
 		        User user = userQuery.orElse(null); 
 		        System.out.println(user);
