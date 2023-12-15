@@ -61,6 +61,8 @@ public class CrewService {
 
 		List<Payment> paymentList = splitwayService.expenseSplit(expense, crew);
 
+		//ACTUALIZAR MONTOS USUARIOS
+		
 		expense.setPaymentList(paymentList);
 		
 		// Debugging logs

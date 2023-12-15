@@ -34,9 +34,6 @@ public class EqualPerMember extends SplitWay{
         if (membersList == null || membersList.isEmpty() || amount <= 0) { //DATOS invalidos
             return new ArrayList<>();	//O exception?
         }
-
-        //// Debugging logs
-        System.out.println("Members List: " + membersList);
         
         Float amountPerMember = amount / membersList.size();
         Date currentDate = new Date();  
