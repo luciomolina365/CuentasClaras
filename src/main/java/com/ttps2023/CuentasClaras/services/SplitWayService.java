@@ -1,21 +1,17 @@
 package com.ttps2023.CuentasClaras.services;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ttps2023.CuentasClaras.model.AmountPerMember;
 import com.ttps2023.CuentasClaras.model.Crew;
-import com.ttps2023.CuentasClaras.model.EqualPerMember;
 import com.ttps2023.CuentasClaras.model.Expense;
 import com.ttps2023.CuentasClaras.model.Payment;
-import com.ttps2023.CuentasClaras.model.PercentagePerMember;
 import com.ttps2023.CuentasClaras.model.SplitWay;
 import com.ttps2023.CuentasClaras.repositories.SplitWayRepository;
 
-import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class SplitWayService {
