@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.Expense;
 import com.ttps2023.CuentasClaras.model.Payment;
+import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.repositories.CrewRepository;
 
 @Service
@@ -28,7 +29,14 @@ public class CrewService {
 		return crewRepository.existsById(id);
 	}
 
+	@Transactional
 	public void create(Crew crew) {
+		
+		List<User> membersList = crew.getMembersList();
+		for (User user : membersList) {
+			user.getCrewList().add(crew);
+		}
+		
 		crewRepository.save(crew);
 	}
 

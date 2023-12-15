@@ -53,26 +53,30 @@ public class CrewRestController {
 
 
 		
-		System.out.println(request.get("membersList"));
+
 		
-		
-		
-		List<User> membersList = null;
-		Optional<User> userQuery;
-		for (Number id : (List<Number>) request.get("membersList")) {
-			userQuery = userService.getById((Long)id);
-			User user = userQuery.orElse(null);
-			if (user == null) {
+		List<User> membersList = new ArrayList<>();
+		for (Number id : (List<Number>) request.get("membersList")) {		
+			
+			Long userId = id.longValue();
+			
+			if (!userService.exists(userId)) {
 				return new ResponseEntity<String>("Usuario no encontrado con el ID proporcionado: " + id , HttpStatus.NOT_FOUND);
-			}		
+			}
+			
+			User user = userService.getById(userId).get();
 			membersList.add(user);
 		}
 		
+		
 		String name = (String) request.get("name");
 		Boolean isPrivate = (Boolean) request.get("isPrivate");
-		
+		// falta category
 		Crew crew = new Crew(name, isPrivate, null, membersList);
 
+		for (User user : membersList) {
+			userService.create(user);
+		}
 		crewService.create(crew);
 
 		return new ResponseEntity<String>("Grupo creado", HttpStatus.CREATED);
@@ -82,6 +86,7 @@ public class CrewRestController {
 	public Crew updateCrew(@RequestBody Map<String, Object> crewRequest, @PathVariable("crewId") Long crewId) {
 		String name = (String) crewRequest.get("name");
 		Boolean isActive = (Boolean) crewRequest.get("active");
+		// falta category
 		return crewService.updateCrew(crewId, name, isActive);
 	}
 
