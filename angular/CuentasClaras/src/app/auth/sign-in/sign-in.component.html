@@ -1,0 +1,35 @@
+
+<h2>Formulario de Usuario</h2>
+
+<form (ngSubmit)="submitForm()">
+  <!-- Primer grupo de campos -->
+  <div>
+    <label for="username">Nombre de Usuario:</label>
+    <input type="text" id="username" name="username" [(ngModel)]="user.username" required>
+  </div>
+
+  <div>
+    <label for="lastname">Apellido:</label>
+    <input type="text" id="lastname" name="lastname" [(ngModel)]="user.lastname" required>
+  </div>
+
+  <!-- Segundo grupo de campos -->
+  <div>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="user.name" required>
+  </div>
+
+  <div>
+    <label for="email">Correo Electrónico:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+  </div>
+
+  <!-- Tercer grupo de campos -->
+  <div>
+    <label for="pass">Contraseña:</label>
+    <input type="password" id="pass" name="pass" [(ngModel)]="user.pass" required>
+  </div>
+
+  <!-- Botón de envío -->
+  <button type="submit">Enviar</button>
+</form>
