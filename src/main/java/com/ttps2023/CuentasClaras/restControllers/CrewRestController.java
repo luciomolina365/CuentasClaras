@@ -51,10 +51,6 @@ public class CrewRestController {
 	@PostMapping("/create")
 	public ResponseEntity<String> createCrew(@RequestBody Map<String, Object> request) {
 
-
-		
-
-		
 		List<User> membersList = new ArrayList<>();
 		for (Number id : (List<Number>) request.get("membersList")) {		
 			
@@ -68,15 +64,11 @@ public class CrewRestController {
 			membersList.add(user);
 		}
 		
-		
 		String name = (String) request.get("name");
 		Boolean isPrivate = (Boolean) request.get("isPrivate");
-		// falta category
+		// falta category///////////////////////////////////////////////
 		Crew crew = new Crew(name, isPrivate, null, membersList);
 
-		for (User user : membersList) {
-			userService.create(user);
-		}
 		crewService.create(crew);
 
 		return new ResponseEntity<String>("Grupo creado", HttpStatus.CREATED);
@@ -86,7 +78,7 @@ public class CrewRestController {
 	public Crew updateCrew(@RequestBody Map<String, Object> crewRequest, @PathVariable("crewId") Long crewId) {
 		String name = (String) crewRequest.get("name");
 		Boolean isActive = (Boolean) crewRequest.get("active");
-		// falta category
+		// falta category///////////////////////////////////////////////
 		return crewService.updateCrew(crewId, name, isActive);
 	}
 
