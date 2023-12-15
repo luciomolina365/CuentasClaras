@@ -31,14 +31,8 @@ public class SplitWayService {
 		
 		List<Payment> paymentList = splitway.split(expense, crew);
 		
+		//actualizar datos de usuarios.
+		
 		return paymentList;
 	}
-
-	// recibo la lista de usuarios q van a estar dentro de este gasto tambien pasar
-	// splitway y expense
-	// entonces segun q ocurra haria una funcion u otra y devuelve la paymentList
-
-	// la duda es si tengo q poner un valor especificco para cada user, como hacer
-	// si lo tengo q enviar a una nueva pestaña
-
 }

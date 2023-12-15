@@ -67,6 +67,10 @@ public class CrewRestController {
 		String name = (String) request.get("name");
 		Boolean isPrivate = (Boolean) request.get("isPrivate");
 		// falta category///////////////////////////////////////////////
+		
+		
+		
+		////////////////////////////////////////////////////////////////
 		Crew crew = new Crew(name, isPrivate, null, membersList);
 
 		crewService.create(crew);

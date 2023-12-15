@@ -65,8 +65,6 @@ public class CrewService {
 		
 		expense.setPaymentList(paymentList);
 		
-		// Debugging logs
-	    System.out.println("Payment List: " + paymentList);
 		
 		crew.addExpense(expense);
 

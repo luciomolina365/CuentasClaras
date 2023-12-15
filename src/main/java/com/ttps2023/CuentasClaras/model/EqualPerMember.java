@@ -26,13 +26,13 @@ public class EqualPerMember extends SplitWay{
 	}
 	
 	
-    public List<Payment> split(Expense expense, Crew crew) {
+    public List<Payment> split(Expense expense, Crew crew) { //@valid
         Float amount = expense.getAmount();
 
         List<User> membersList = crew.getMembersList();
         
         if (membersList == null || membersList.isEmpty() || amount <= 0) { //DATOS invalidos
-            return new ArrayList<>();	//O exception?
+            return new ArrayList<>();	//o exception?
         }
         
         Float amountPerMember = amount / membersList.size();
