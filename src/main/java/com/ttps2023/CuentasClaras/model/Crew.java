@@ -2,6 +2,9 @@ package com.ttps2023.CuentasClaras.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +23,7 @@ import jakarta.persistence.Table;
 public class Crew {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty(access = Access.WRITE_ONLY)
     private Long id;
 	
 	@Column(name = "name")
@@ -33,10 +37,14 @@ public class Crew {
 	
 	@ManyToOne
 	private CrewCategory category;
- 	
+
+
+	@JsonProperty(access = Access.WRITE_ONLY)
  	@ManyToMany(mappedBy = "crewList", cascade = CascadeType.ALL)
  	private List<User> membersList;
- 	 	
+ 	
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
  	@OneToMany(mappedBy = "crew", cascade = CascadeType.ALL)
 	private List<Expense> expenseList;
  	
@@ -114,5 +122,12 @@ public class Crew {
 		
 		this.expenseList.add(expense);
 	}
- 	
+
+	@Override
+	public String toString() {
+		return "Crew [id=" + id + ", name=" + name + ", active=" + active + ", isPrivate=" + isPrivate + "]";
+	}
+
+
+	
 }

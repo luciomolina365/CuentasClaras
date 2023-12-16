@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ttps2023.CuentasClaras.model.ExpenseCategory;
 import com.ttps2023.CuentasClaras.repositories.ExpenseCategoryRepository;
-import com.ttps2023.CuentasClaras.repositories.FriendRequestRepository;
+
 
 
 

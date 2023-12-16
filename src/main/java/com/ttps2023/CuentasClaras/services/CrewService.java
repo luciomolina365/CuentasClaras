@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ttps2023.CuentasClaras.model.Crew;
+import com.ttps2023.CuentasClaras.model.CrewCategory;
 import com.ttps2023.CuentasClaras.model.Expense;
 import com.ttps2023.CuentasClaras.model.Payment;
 import com.ttps2023.CuentasClaras.model.User;
@@ -44,10 +45,11 @@ public class CrewService {
 		return crewRepository.findById(id);
 	}
 
-	public Crew updateCrew(Long crewId, String name, Boolean isActive) {
+	public Crew updateCrew(Long crewId, String name, Boolean isActive, CrewCategory category) {
 		Optional<Crew> crewQuery = crewRepository.findById(crewId);
 		Crew crewBD = crewQuery.orElse(null); // se rompe si no existe ver si hace falta
 
+		crewBD.setCategory(category);
 		crewBD.setName(name);
 		crewBD.setActive(isActive);
 
@@ -72,19 +74,4 @@ public class CrewService {
 	}
 
 }
-//	public Optional<Crew> getById(Long id) {
-//		Optional<Crew> aux= crewRepository.findById(id);
-//		Crew aux2 = aux.orElse(null);
-//		
-//		
-//		System.out.println(aux2.getMembersList().toString());
-//		
-//		return aux;
 
-//		return crewRepository.findById(id);
-
-//	
-//	 public List<User> getAllMembersList(Long crewId){
-//		 return 
-//	 }
-//}

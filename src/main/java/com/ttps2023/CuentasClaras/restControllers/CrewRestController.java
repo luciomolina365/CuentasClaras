@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ttps2023.CuentasClaras.model.Crew;
+import com.ttps2023.CuentasClaras.model.CrewCategory;
 import com.ttps2023.CuentasClaras.model.Expense;
 import com.ttps2023.CuentasClaras.model.ExpenseCategory;
 import com.ttps2023.CuentasClaras.model.SplitWay;
 import com.ttps2023.CuentasClaras.model.User;
+import com.ttps2023.CuentasClaras.services.CrewCategoryService;
 import com.ttps2023.CuentasClaras.services.CrewService;
 import com.ttps2023.CuentasClaras.services.ExpenseCategoryService;
 import com.ttps2023.CuentasClaras.services.ExpenseService;
@@ -38,40 +40,49 @@ public class CrewRestController {
 	private final UserService userService;
 	private final ExpenseCategoryService expenseCategoryService;
 	private final SplitWayService splitwayService;
+	private final CrewCategoryService crewCategoryService;
 
 	public CrewRestController(CrewService crewService, ExpenseService expenseService, UserService userService,
-			ExpenseCategoryService expenseCategoryService, SplitWayService splitwayService) {
+			ExpenseCategoryService expenseCategoryService, SplitWayService splitwayService,
+			CrewCategoryService crewCategoryService) {
 		this.crewService = crewService;
 		this.expenseService = expenseService;
 		this.userService = userService;
 		this.expenseCategoryService = expenseCategoryService;
 		this.splitwayService = splitwayService;
+		this.crewCategoryService = crewCategoryService;
 	}
 
 	@PostMapping("/create")
 	public ResponseEntity<String> createCrew(@RequestBody Map<String, Object> request) {
 
 		List<User> membersList = new ArrayList<>();
-		for (Number id : (List<Number>) request.get("membersList")) {		
-			
+		for (Number id : (List<Number>) request.get("membersList")) {
+
 			Long userId = id.longValue();
-			
+
 			if (!userService.exists(userId)) {
-				return new ResponseEntity<String>("Usuario no encontrado con el ID proporcionado: " + id , HttpStatus.NOT_FOUND);
+				return new ResponseEntity<String>("Usuario no encontrado con el ID proporcionado: " + id,
+						HttpStatus.NOT_FOUND);
 			}
-			
+
 			User user = userService.getById(userId).get();
 			membersList.add(user);
 		}
-		
+
+		Long categoryId = ((Number) request.get("category")).longValue();
+		Optional<CrewCategory> categoryQuery = crewCategoryService.getById(categoryId);
+		CrewCategory category = categoryQuery.orElse(null);
+
+		if (category == null) {
+			return new ResponseEntity<String>("Categoria de grupo no encontrada con el ID proporcionado.",
+					HttpStatus.NOT_FOUND);
+		}
+
 		String name = (String) request.get("name");
 		Boolean isPrivate = (Boolean) request.get("isPrivate");
-		// falta category///////////////////////////////////////////////
-		
-		
-		
-		////////////////////////////////////////////////////////////////
-		Crew crew = new Crew(name, isPrivate, null, membersList);
+
+		Crew crew = new Crew(name, isPrivate, category, membersList);
 
 		crewService.create(crew);
 
@@ -79,11 +90,23 @@ public class CrewRestController {
 	}
 
 	@PutMapping("/{crewId}/update")
-	public Crew updateCrew(@RequestBody Map<String, Object> crewRequest, @PathVariable("crewId") Long crewId) {
-		String name = (String) crewRequest.get("name");
-		Boolean isActive = (Boolean) crewRequest.get("active");
-		// falta category///////////////////////////////////////////////
-		return crewService.updateCrew(crewId, name, isActive);
+	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request, @PathVariable("crewId") Long crewId) {
+
+		Long categoryId = ((Number) request.get("category")).longValue();
+		Optional<CrewCategory> categoryQuery = crewCategoryService.getById(categoryId);
+		CrewCategory category = categoryQuery.orElse(null);
+
+		if (category == null) {
+			return new ResponseEntity<Object>("Categoria de grupo no encontrada con el ID proporcionado.", HttpStatus.NOT_FOUND);
+		}
+		
+
+		String name = (String) request.get("name");
+		Boolean isActive = (Boolean) request.get("active");
+
+		Crew crew = crewService.updateCrew(crewId, name, isActive, category); 
+		
+		return new ResponseEntity<Object>(crew, HttpStatus.ACCEPTED);
 	}
 
 	@PostMapping("/{crewId}/createExpense")
@@ -122,7 +145,6 @@ public class CrewRestController {
 		}
 
 		Date date = new Date();
-
 		Float amount = ((Double) request.get("amount")).floatValue();
 
 		Expense expense = new Expense(user, crew, amount, category, date, false, null, splitway);
@@ -156,28 +178,3 @@ public class CrewRestController {
 	}
 }
 
-//		@PostMapping("/update/{id}")
-//		public ResponseEntity<String> getById(@PathVariable Long id, @RequestHeader("Token") String token) {
-//			
-//			Optional<Crew> crewQuery= crewService.getById(id);
-//			
-//			Crew crew=crewQuery.orElse(null);
-//			if (crew==null) {
-//				return new ResponseEntity<String>("Grupo no encontrado.", HttpStatus.NOT_FOUND);
-//			}
-//			
-//			if (!token.equals(crew.getId()+"/123456")) {
-//				return new ResponseEntity<String>("Grupo no encontrado.", HttpStatus.UNAUTHORIZED);
-//			}
-//			
-//			
-//			HttpHeaders responseHeaders = new HttpHeaders();					  //
-//			responseHeaders.set("Token", crew.getId() + "/123456");
-//		
-//			return ResponseEntity.accepted().headers(responseHeaders).body(null);
-//		}
-
-//		public ResponseEntity<String> createUser(@RequestBody Crew crew) {
-//			if (crewService.existCrewName(crew.getCrewName())) {
-//				return new ResponseEntity<String>("Grupo con ese nombre ya existe", HttpStatus.CONFLICT);
-//			}
