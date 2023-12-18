@@ -1,22 +1,34 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { PermisosRutasService } from './core/permisosRutas/permisos-rutas.service';
-import { ContenidoComponent } from './layout/privado/contenido/contenido.component';
+import { Routes, RouterModule } from '@angular/router';
 
-import { SesionComponent } from './layout/publico/sesion/sesion.component';
+import { ErrorPageComponent } from './shared/error-page/error-page.component';
 
-const routes: Routes = [{
-  path:'sinsesion',component:SesionComponent,loadChildren:()=>import('./modules/login/login.module').then(m=>m.loginModule)
-},
-{
-  path:'sesion',component:ContenidoComponent,canActivate:[PermisosRutasService],loadChildren:()=>import('./modules/principal/principal.module').then(m=>m.principalModule)
-},
-{
-  path:"**",redirectTo:'sinsesion/login'
-}];
+const routes: Routes = [
+ {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule)
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
+  },
+  {
+    path: '404',
+    component: ErrorPageComponent
+  },
+  {
+    path: '**',
+    //component: ErrorPageComponent
+    redirectTo: '404'
+  }
+];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+@NgModule({  
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }
