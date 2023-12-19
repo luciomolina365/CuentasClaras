@@ -55,13 +55,18 @@ public class CrewRestController {
 	@PostMapping("/create")
 	public ResponseEntity<String> createCrew(@RequestBody Map<String, Object> request) {
 
-		List<User> membersList = new ArrayList<>();
-		for (Number id : (List<Number>) request.get("membersList")) {
+		if (!request.containsKey("membersList") || !request.containsKey("category") || !request.containsKey("name")
+				|| !request.containsKey("isPrivate")) {
+			return new ResponseEntity<>("Campos obligatorios faltantes en la solicitud.", HttpStatus.BAD_REQUEST);
+		}
 
+		List<User> membersList = new ArrayList<>();
+
+		for (Number id : (List<Number>) request.get("membersList")) {
 			Long userId = id.longValue();
 
 			if (!userService.exists(userId)) {
-				return new ResponseEntity<String>("Usuario no encontrado con el ID proporcionado: " + id,
+				return new ResponseEntity<>("Usuario no encontrado con el ID proporcionado: " + id,
 						HttpStatus.NOT_FOUND);
 			}
 
@@ -74,7 +79,7 @@ public class CrewRestController {
 		CrewCategory category = categoryQuery.orElse(null);
 
 		if (category == null) {
-			return new ResponseEntity<String>("Categoria de grupo no encontrada con el ID proporcionado.",
+			return new ResponseEntity<>("Categoria de grupo no encontrada con el ID proporcionado.",
 					HttpStatus.NOT_FOUND);
 		}
 
@@ -85,7 +90,8 @@ public class CrewRestController {
 
 		crewService.create(crew);
 
-		return new ResponseEntity<String>("Grupo creado", HttpStatus.CREATED);
+		return new ResponseEntity<>("Grupo creado", HttpStatus.CREATED);
+
 	}
 
 	@PutMapping("/{crewId}/update")
