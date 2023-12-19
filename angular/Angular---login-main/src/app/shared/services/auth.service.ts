@@ -1,33 +1,39 @@
 // auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { User } from '../../models/User';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthService {
-  private apiUrl = 'http://localhost:8080'; // Reemplaza con la URL de tu backend
+@Injectable({ providedIn: 'root' })
+export class AuthenticationService {
 
-  constructor(private http: HttpClient) {}
 
-  login(credentials: { username: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  constructor(private http: HttpClient) {
+
   }
 
-  setToken(token: string): void {
-    localStorage.setItem('token', token);
+  login(username: string, password: string): Observable<any> {
+
+    return this.http.post<any>('http://localhost:8081/usuarios/login', { "nombreUsuario": username, "clave": password })
+      .subscribe(response => {
+        localStorage.setItem('token', response.token);
+      });
+  }
+
+  logout(): void {
+    // remove token from local storage
+    localStorage.removeItem('token');
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  isLoggedIn(): boolean {
+  isAuthenticated(): boolean {
+    // check if a token exists
     return !!this.getToken();
   }
-
-  logout(): void {
-    localStorage.removeItem('token');
-  }
 }
+
+

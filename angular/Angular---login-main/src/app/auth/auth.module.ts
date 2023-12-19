@@ -8,8 +8,8 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    SigninComponent
+   // LoginComponent,
+    //SigninComponent
   ],
   imports: [
     CommonModule,

@@ -8,24 +8,27 @@ import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptor} from './interceptor.service';
 
+import { LoginComponent } from './auth/login/login.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { LoginService } from 'src/app/shared/services/auth/login.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorPageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [
-    {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true}
-    // mas interceptores
-    // ,{provide:HTTP_INTERCEPTORS,useClass: OtroInterceptor, multi:true} ...
-    ],
+  //providers: [
+   // {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptorService,multi:true},
+   // {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptorService,multi:true}
+  //],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

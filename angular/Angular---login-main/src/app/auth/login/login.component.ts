@@ -1,27 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
+import { FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/shared/services/auth/login.service';
+import { LoginRequest } from 'src/app/shared/services/auth/loginRequest';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
-  credentials = { username: '', password: '' };
+export class LoginComponent implements OnInit {
+  loginError:string="";
+  loginForm=this.formBuilder.group({
+    username:['',[Validators.required,Validators.email]],
+    password: ['',Validators.required],
+  })
+  constructor(private formBuilder:FormBuilder, private router:Router, private loginService: LoginService) { }
 
-  constructor(private router: Router,private authService: AuthService) {}
-
-  login(): void {
-    this.authService.login(this.credentials).subscribe(
-      (response) => {
-        this.authService.setToken(response.token);
-		this.router.navigate(['/']);
-        // Redirigir a la página principal u otra página después del login
-      },
-      (error) => {
-        console.error('Error during login', error);
-        // Manejar el error de autenticación
-      }
-    );
+  ngOnInit(): void {
   }
+
+  get email(){
+    return this.loginForm.controls.username;
+  }
+
+  get password()
+  {
+    return this.loginForm.controls.password;
+  }
+
+  login(){
+    if(this.loginForm.valid){
+      this.loginError="";
+      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
+        next: (userData) => {
+          console.log(userData);
+        },
+        error: (errorData) => {
+          console.error(errorData);
+          this.loginError=errorData;
+        },
+        complete: () => {
+          console.info("Login completo");
+          this.router.navigateByUrl('/inicio');
+          this.loginForm.reset();
+        }
+      })
+
+    }
+    else{
+      this.loginForm.markAllAsTouched();
+      alert("Error al ingresar los datos.");
+    }
+  }
+
 }
