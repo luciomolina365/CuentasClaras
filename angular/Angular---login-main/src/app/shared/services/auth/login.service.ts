@@ -18,17 +18,13 @@ export class LoginService {
     this.currentUserData=new BehaviorSubject<String>(sessionStorage.getItem("token") || "");
   }
 
-  login(credentials:LoginRequest):Observable<any>{
-    return this.http.post<any>(environment.urlHost+"user/login",credentials).pipe(
-      tap( (userData) => {
-        sessionStorage.setItem("token", userData.token);
-        this.currentUserData.next(userData.token);
-        this.currentUserLoginOn.next(true);
-      }),
-      map((userData)=> userData.token),
-      catchError(this.handleError)
-    );
+
+
+ login(username: string, password: string): Observable<any> {
+    const credentials = { username, password };
+   	return this.http.post<any>("http://localhost:8080/user/login",credentials)
   }
+
 
   logout():void{
     sessionStorage.removeItem("token");
