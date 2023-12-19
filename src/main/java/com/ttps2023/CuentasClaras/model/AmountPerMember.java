@@ -5,7 +5,6 @@ import java.util.List;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
 @DiscriminatorValue("AmountPerMember")

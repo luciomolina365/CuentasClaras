@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.Expense;
 import com.ttps2023.CuentasClaras.repositories.ExpenseRepository;
 
