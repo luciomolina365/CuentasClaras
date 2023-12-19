@@ -43,12 +43,15 @@ public class Expense {
 	private Crew crew;
 
 	@ManyToOne
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private ExpenseCategory category;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Payment> paymentList;
 
 	@ManyToOne
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@JoinColumn(name = "splitway_id")
 	private SplitWay splitway;
 

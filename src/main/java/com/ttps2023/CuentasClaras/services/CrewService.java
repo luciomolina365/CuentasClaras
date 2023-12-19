@@ -32,12 +32,12 @@ public class CrewService {
 
 	@Transactional
 	public void create(Crew crew) {
-		
+
 		List<User> membersList = crew.getMembersList();
 		for (User user : membersList) {
 			user.getCrewList().add(crew);
 		}
-		
+
 		crewRepository.save(crew);
 	}
 
@@ -45,33 +45,33 @@ public class CrewService {
 		return crewRepository.findById(id);
 	}
 
-	public Crew updateCrew(Long crewId, String name, Boolean isActive, CrewCategory category) {
-		Optional<Crew> crewQuery = crewRepository.findById(crewId);
-		Crew crewBD = crewQuery.orElse(null); // se rompe si no existe ver si hace falta
-
-		crewBD.setCategory(category);
-		crewBD.setName(name);
-		crewBD.setActive(isActive);
-
-		return crewRepository.save(crewBD);
+	@Transactional
+	public Crew updateCrew(Crew crew) {
+		return crewRepository.save(crew);
 
 	}
-	
+
 	@Transactional
 	public void createExpenseInCrew(Crew crew, Expense expense) {
 
-
 		List<Payment> paymentList = splitwayService.expenseSplit(expense, crew);
 
-		//ACTUALIZAR MONTOS USUARIOS
-		
 		expense.setPaymentList(paymentList);
-		
-		
+
 		crew.addExpense(expense);
 
 		crewRepository.save(crew);
 	}
+	
+	@Transactional
+	public List<Expense> crewExpenseList(Long id) {
+		Crew crew = crewRepository.findById(id).orElse(null);
+		
+		if (crew != null ) {
+			return crew.getExpenseList();
+		}
+		
+		return null;
+	}
 
 }
-

@@ -18,24 +18,58 @@ import jakarta.persistence.Table;
 @Table(name = "expenseCategory")
 public class ExpenseCategory {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "image")
 	private String image;
-	
-	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL) 
+
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Expense> expenses;
 
-	public ExpenseCategory(String category,String image) {
+	public ExpenseCategory(String category, String image) {
 		this.name = category;
 		this.image = image;
 	}
-	public ExpenseCategory() {}
-	
+
+	public ExpenseCategory() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public List<Expense> getExpenses() {
+		return expenses;
+	}
+
+	public void setExpenses(List<Expense> expenses) {
+		this.expenses = expenses;
+	}
+
 }

@@ -24,6 +24,7 @@ import jakarta.persistence.Table;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Long id;
 
 	@Column(unique = true, name = "username")
@@ -49,20 +50,25 @@ public class User {
 	private Float youAreOwed;
 
 	@OneToMany(mappedBy = "user")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Contact> contactList;
 
 	@ManyToMany
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@JoinTable(name = "user_crew", joinColumns = { @JoinColumn(name = "id_user") }, inverseJoinColumns = {
 			@JoinColumn(name = "id_crew") })
 	private List<Crew> crewList;
 
-	@OneToMany(mappedBy = "user") // , cascade = CascadeType.REMOVE agrego cascade¿?
+	@OneToMany(mappedBy = "user") 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<FriendRequest> friendRequestList;
 
 	@OneToMany(mappedBy = "belongsTo", cascade = CascadeType.ALL)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Payment> paymentList;
 
 	@OneToMany(mappedBy = "belongsTo", cascade = CascadeType.ALL)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Expense> expenseList;
 
 	public User(String username, String lastname, String name, String email, String pass) {
@@ -197,6 +203,7 @@ public class User {
 	public void setExpenseList(List<Expense> expenseList) {
 		this.expenseList = expenseList;
 	}
+	
 
 	@Override
 	public String toString() {
@@ -210,7 +217,6 @@ public class User {
 
 		LocalDate today = LocalDate.now();
 
-		// Convertir LocalDate a java.sql.Date
 		Date date = Date.valueOf(today);
 
 		Contact contact1 = new Contact(this, date);
@@ -219,6 +225,22 @@ public class User {
 		this.contactList.add(contact1);
 		this.contactList.add(contact2);
 
+	}
+
+	public void addToYouAreOwed(float amount) {
+		youAreOwed += amount;
+	}
+
+	public void subtractFromYouAreOwed(float amount) {
+		youAreOwed -= amount;
+	}
+
+	public void addToYouOwe(float amount) {
+		youOwe += amount;
+	}
+
+	public void subtractFromYouOwe(float amount) {
+		youOwe -= amount;
 	}
 
 }

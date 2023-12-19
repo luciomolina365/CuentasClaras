@@ -89,26 +89,42 @@ public class CrewRestController {
 	}
 
 	@PutMapping("/{crewId}/update")
-	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request, @PathVariable("crewId") Long crewId) {
+	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request,
+			@PathVariable("crewId") Long crewId) {
+		Optional<Crew> crewQuery = crewService.getById(crewId);
+		Crew crew = crewQuery.orElse(null);
+
+		if (crew == null) {
+			return new ResponseEntity<>("Grupo no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
+		}
 
 		Long categoryId = ((Number) request.get("category")).longValue();
 		Optional<CrewCategory> categoryQuery = crewCategoryService.getById(categoryId);
 		CrewCategory category = categoryQuery.orElse(null);
 
 		if (category == null) {
-			return new ResponseEntity<Object>("Categoria de grupo no encontrada con el ID proporcionado.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Categoría de grupo no encontrada con el ID proporcionado.",
+					HttpStatus.NOT_FOUND);
 		}
-		
 
-		String name = (String) request.get("name");
-		Boolean isActive = (Boolean) request.get("active");
+		if (request.containsKey("name")) {
+			String name = (String) request.get("name");
+			crew.setName(name);
+		}
 
-		Crew crew = crewService.updateCrew(crewId, name, isActive, category); 
-		
-		return new ResponseEntity<Object>(crew, HttpStatus.ACCEPTED);
+		if (request.containsKey("active")) {
+			Boolean isActive = (Boolean) request.get("active");
+			crew.setActive(isActive);
+		}
+
+		crew.setCategory(category);
+
+		Crew updatedCrew = crewService.updateCrew(crew);
+
+		return new ResponseEntity<>(updatedCrew, HttpStatus.ACCEPTED);
 	}
 
-	@PostMapping("/{crewId}/createExpense")
+	@PostMapping("/{crewId}/expense")
 	public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request,
 			@PathVariable("crewId") Long crewId) {
 
@@ -153,7 +169,7 @@ public class CrewRestController {
 		return new ResponseEntity<String>("Gasto creado en el grupo", HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{crewId}/expenseList")
+	@GetMapping("/{crewId}/expenses")
 	public List<Expense> showExpenseList(@PathVariable("crewId") Long crewId) {
 		crewService.getById(crewId);
 		Optional<Crew> crewQuery = crewService.getById(crewId);
@@ -161,19 +177,20 @@ public class CrewRestController {
 		return crewBD.getExpenseList();
 	}
 
-	@PutMapping("/updateExpense/{expenseId}") // no funciona
+	@PutMapping("/expense/{expenseId}") // no funciona
 	public Expense updateExpense(@RequestBody Map<String, Object> expenseRequest,
 			@PathVariable("expenseId") Long expenseId) {
 
-//			 
-//			 	System.out.println(expenseRequest.get("amount").getClass());
-//				Float amount = Float.par //expenseRequest.get("amount"); // pongo amount solo pero se deberia todo
-//				
 		Date date = new Date((Long) expenseRequest.get("date"));
-		// (Date) expenseRequest.get("date");
 
 		return expenseService.updateExpense(expenseId, date);
 
 	}
-}
 
+	@GetMapping("/{id}/expenses")
+	public ResponseEntity<List<Expense>> getCrewExpenses(@PathVariable Long id) {
+		List<Expense> crewExpenses = crewService.crewExpenseList(id);
+		return new ResponseEntity<>(crewExpenses, HttpStatus.OK);
+	}
+
+}
