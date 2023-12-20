@@ -20,20 +20,20 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebFilter(filterName = "jwt-auth-filter", urlPatterns = "/*")
 public class JWTAuthenticationFilter implements Filter {
 
-    private static final String AUTH_PATH = "/user/login";
-	
+	private static final String AUTH_PATH = "/user/login";
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		
-        if (shouldSkipFilter(req.getRequestURI())) {
-            chain.doFilter(request, response);
-            return;
-        }
-        
-        System.out.println("ENTRO AL FILTRO");
-		
+
+		if (shouldSkipFilter(req.getRequestURI())) {
+			chain.doFilter(request, response);
+			return;
+		}
+
+		System.out.println("ENTRO AL FILTRO");
+
 		String token = req.getHeader(HttpHeaders.AUTHORIZATION);
 		if (token == null || !TokenServices.validateToken(token)) {
 			HttpServletResponse res = (HttpServletResponse) response;
@@ -43,9 +43,8 @@ public class JWTAuthenticationFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 
-    private boolean shouldSkipFilter(String requestURI) {
-        return AUTH_PATH.equals(requestURI) || HttpMethod.OPTIONS.matches(requestURI);
-    }
-	
-	
+	private boolean shouldSkipFilter(String requestURI) {
+		return AUTH_PATH.equals(requestURI) || HttpMethod.OPTIONS.matches(requestURI);
+	}
+
 }

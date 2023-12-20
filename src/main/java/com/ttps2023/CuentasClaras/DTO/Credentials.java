@@ -1,4 +1,4 @@
-package com.ttps2023.CuentasClaras.filter;
+package com.ttps2023.CuentasClaras.DTO;
 
 public class Credentials {
 
