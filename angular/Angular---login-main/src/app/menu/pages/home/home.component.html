@@ -2,13 +2,11 @@
 
 <!-- app.component.html -->
 <div>
-	<h1>Bienvenido {{user.username}}</h1>
   <nav>
     <ul>
-      <li><a routerLink="/auth/login">Iniciar sesion</a></li>
-      <li><a routerLink="/auth/signin">Registrarse</a></li>
+      <li><a routerLink="/user/login">Iniciar sesion</a></li>
+      <li><a routerLink="/user/signin">Registrarse</a></li>
+      <li><a routerLink="/crew/create">Crear Grupo</a></li>
     </ul>
   </nav>
-
-  <router-outlet></router-outlet>
 </div>

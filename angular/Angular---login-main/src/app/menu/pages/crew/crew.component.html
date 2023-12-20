@@ -1,0 +1,23 @@
+<p>crew works!</p>
+ <div>
+      <label for="crewName">Nombre de la Tripulación:</label>
+      <input [(ngModel)]="crewName" name="crewName" type="text">
+    </div>
+
+    <div>
+      <label for="isPrivate">¿Es privada?</label>
+      <input [(ngModel)]="isPrivate" name="isPrivate" type="checkbox">
+    </div>
+<div>
+      <label for="category">Categoría:</label>
+      <input [(ngModel)]="category" name="category" type="text">
+    </div>
+<!---
+    <div>
+      <label for="category">Categoría:</label>
+      <select [(ngModel)]="category" name="category">
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+-->
+    <button (click)="createCrew()">Crear Grupo</button>

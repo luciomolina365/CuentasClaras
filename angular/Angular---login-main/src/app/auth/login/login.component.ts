@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoginService } from 'src/app/shared/services/auth/login.service';
-import { LoginRequest } from 'src/app/shared/services/auth/loginRequest';
 
 
 @Component({
@@ -44,7 +42,7 @@ export class LoginComponent {
 				},
 				(error) => {
 					console.error('Error durante el inicio de sesión:', error);
-					console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+					
 				}
 			);
 		}
