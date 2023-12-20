@@ -175,14 +175,6 @@ public class CrewRestController {
 		return new ResponseEntity<String>("Gasto creado en el grupo", HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{crewId}/expenses")
-	public List<Expense> showExpenseList(@PathVariable("crewId") Long crewId) {
-		crewService.getById(crewId);
-		Optional<Crew> crewQuery = crewService.getById(crewId);
-		Crew crewBD = crewQuery.orElse(null); // controlar el null
-		return crewBD.getExpenseList();
-	}
-
 	@PutMapping("/expense/{expenseId}") // no funciona
 	public Expense updateExpense(@RequestBody Map<String, Object> expenseRequest,
 			@PathVariable("expenseId") Long expenseId) {
