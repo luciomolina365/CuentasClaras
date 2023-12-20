@@ -80,14 +80,11 @@ public class UserRestController {
 
 		Optional<User> userQuery = userService.authenticateWithUsernameAndPass(username, password);
 		User user = userQuery.orElse(null);
-		System.out.println(user);
-		if (user != null) {
 
-			// Generar token
+		if (user != null) {
 
 			String token = tokenServices.generateToken(user.getUsername(), EXPIRATION_IN_SEC);
 
-			// Devolver el token en la respuesta
 			return ResponseEntity.ok(new Credentials(token, EXPIRATION_IN_SEC, user.getUsername()));
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
