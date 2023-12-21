@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterModule
+    
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true}
