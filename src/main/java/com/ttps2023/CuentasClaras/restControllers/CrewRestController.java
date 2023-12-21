@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import com.ttps2023.CuentasClaras.services.SplitWayService;
 import com.ttps2023.CuentasClaras.services.UserService;
 
 @RestController
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RequestMapping(value = "/crew", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CrewRestController {
 
@@ -53,7 +55,7 @@ public class CrewRestController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<String> createCrew(@RequestBody Map<String, Object> request) {
+	public ResponseEntity<Object> createCrew(@RequestBody Map<String, Object> request) {
 
 		if (!request.containsKey("membersList") || !request.containsKey("category") || !request.containsKey("name")
 				|| !request.containsKey("isPrivate")) {
@@ -90,7 +92,7 @@ public class CrewRestController {
 
 		crewService.create(crew);
 
-		return new ResponseEntity<>("Grupo creado", HttpStatus.CREATED);
+		return new ResponseEntity<Object>(crew, HttpStatus.CREATED);
 
 	}
 
