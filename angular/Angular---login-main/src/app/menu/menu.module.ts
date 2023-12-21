@@ -6,11 +6,15 @@ import { MenuRoutingModule } from './menu-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 
 import {CrewComponent } from './pages/crew/crew.component';
+import { ExpenseComponent } from './pages/expense/expense.component';
+import { ListCrewsComponent } from './pages/list-crews/list-crews.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    CrewComponent
+    CrewComponent,
+    ExpenseComponent,
+    ListCrewsComponent
   ],
   imports: [
     CommonModule,
