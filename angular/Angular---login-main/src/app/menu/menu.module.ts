@@ -5,10 +5,12 @@ import { MenuRoutingModule } from './menu-routing.module';
 
 import { HomeComponent } from './pages/home/home.component';
 
+import {CrewComponent } from './pages/crew/crew.component';
 
 @NgModule({
   declarations: [
-  //  HomeComponent,
+    HomeComponent,
+    CrewComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,7 @@
 package com.ttps2023.CuentasClaras.services;
 
 import java.util.Date;
+import java.util.Optional;
 
 import javax.crypto.SecretKey;
 
@@ -13,9 +14,20 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+
+import com.ttps2023.CuentasClaras.services.UserService;
+
+
 @Service
 public class TokenServices {
 	final static SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	private final UserService userService;
+
+		public TokenServices(UserService userService) {
+		this.userService = userService;
+	}
+
+
 
 	/**
 	 * Genera el token de authorizacion para el usuario

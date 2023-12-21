@@ -8,10 +8,10 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule)
   },
-//  {
-  //  path: 'menu',
-   // loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
- // },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
+  },
   {
     path: '404',
     component: ErrorPageComponent

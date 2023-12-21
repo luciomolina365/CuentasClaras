@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoginService } from 'src/app/shared/services/auth/login.service';
 
 
@@ -32,7 +31,6 @@ export class LoginComponent {
 					const token = response.token;
 					if (token) {
 						console.log('Inicio de sesión exitoso. Token:', token);
-
 						localStorage.setItem('token', token);
 						localStorage.setItem('id', response.id);
 						localStorage.setItem('username', response.username);
@@ -45,6 +43,7 @@ export class LoginComponent {
 				},
 				(error) => {
 					console.error('Error durante el inicio de sesión:', error);
+					
 				}
 			);
 		}

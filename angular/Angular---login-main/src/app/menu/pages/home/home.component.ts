@@ -13,7 +13,6 @@ import { User } from 'src/app/shared/services/auth/user';
 })
 export class HomeComponent implements OnInit {
   constructor() { }
-  user?:String="";
 
   ngOnInit(): void {
   }
