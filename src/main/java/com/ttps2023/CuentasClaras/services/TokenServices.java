@@ -39,7 +39,6 @@ public class TokenServices {
 	
 	 public String generateToken(String username, int segundos) {
 		 Date exp = getExpiration(new Date(), segundos);
-		 Optional<User> idUserLong =userService.getById() 
 	 	return Jwts.builder().setSubject(username).signWith(key).setExpiration(exp).compact();
 	 }
 	 
