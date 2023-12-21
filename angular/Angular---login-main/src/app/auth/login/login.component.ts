@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/shared/services/auth/login.service';
-import { LoginRequest } from 'src/app/shared/services/auth/loginRequest';
 
 
 @Component({
@@ -12,7 +11,8 @@ import { LoginRequest } from 'src/app/shared/services/auth/loginRequest';
 export class LoginComponent {
 
 	loginForm: FormGroup;
-	constructor(private fb: FormBuilder, private LoginService: LoginService) {
+
+	constructor(private fb: FormBuilder, private LoginService: LoginService, private router: Router) {
 		this.loginForm = this.fb.group({
 			username: ['', Validators.required],
 			password: ['', Validators.required]
@@ -28,23 +28,23 @@ export class LoginComponent {
 
 			this.LoginService.login(username, password).subscribe(
 				(response) => {
+
 					const token = response.token;
-
-
 					if (token) {
 						console.log('Inicio de sesión exitoso. Token:', token);
-						localStorage.setItem('token', token);
 
-						// Aquí puedes almacenar el token en localStorage o en una cookie
-						// Luego, puedes redirigir al usuario a otra página o realizar otras acciones después del inicio de sesión
+						localStorage.setItem('token', token);
+						localStorage.setItem('id', response.id);
+						localStorage.setItem('username', response.username);
+
+						this.router.navigate(['/menu/home']);
+						
 					} else {
 						console.log('Inicio de sesión fallido. Token no recibido.');
-						// Puedes mostrar un mensaje de error o realizar otras acciones si el inicio de sesión falla
 					}
 				},
 				(error) => {
 					console.error('Error durante el inicio de sesión:', error);
-					console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 				}
 			);
 		}

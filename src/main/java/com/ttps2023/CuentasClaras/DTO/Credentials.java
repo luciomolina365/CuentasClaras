@@ -2,38 +2,47 @@ package com.ttps2023.CuentasClaras.DTO;
 
 public class Credentials {
 
-    private String token;
-    private int expirationInSeconds;
-    private String username;
+	private Long id;
+	private String token;
+	private int expirationInSeconds;
+	private String username;
 
-    public Credentials(String token, int expirationInSeconds, String username) {
-        this.token = token;
-        this.expirationInSeconds = expirationInSeconds;
-        this.username = username;
-    }
+	public Credentials(String token, int expirationInSeconds, Long id, String username) {
+		this.token = token;
+		this.expirationInSeconds = expirationInSeconds;
+		this.id = id;
+		this.username = username;
+	}
 
-    public String getToken() {
-        return token;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public int getExpirationInSeconds() {
-        return expirationInSeconds;
-    }
+	public String getToken() {
+		return token;
+	}
 
-    public void setExpirationInSeconds(int expirationInSeconds) {
-        this.expirationInSeconds = expirationInSeconds;
-    }
+	public void setToken(String token) {
+		this.token = token;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public int getExpirationInSeconds() {
+		return expirationInSeconds;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setExpirationInSeconds(int expirationInSeconds) {
+		this.expirationInSeconds = expirationInSeconds;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }
-

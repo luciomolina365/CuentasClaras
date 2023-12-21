@@ -28,7 +28,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public class UserRestController {
 
 	private final UserService userService;
-//	private final HttpSession httpSession;
 	private final TokenServices tokenServices;
 	private final int EXPIRATION_IN_SEC = 100; // 10 segs!!
 
@@ -43,12 +42,10 @@ public class UserRestController {
 
 		if (user == null || user.getUsername() == null || user.getPass() == null) {
 			return new ResponseEntity<>("Datos de usuario incorrectos o faltantes.", HttpStatus.BAD_REQUEST);
-
 		}
 
 		if (userService.existsByUsername(user.getUsername())) {
 			return new ResponseEntity<>("Usuario ya existe", HttpStatus.CONFLICT);
-
 		}
 
 		userService.create(user);
@@ -79,7 +76,7 @@ public class UserRestController {
 		}
 
 		String token = tokenServices.generateToken(user.getUsername(), EXPIRATION_IN_SEC);
-		return new ResponseEntity<>(new Credentials(token, EXPIRATION_IN_SEC, user.getUsername()), HttpStatus.OK); // SE PUEDE MANDAR EL ID TMB, (CAMBIAR DTO Credentials)
+		return new ResponseEntity<>(new Credentials(token, EXPIRATION_IN_SEC, user.getId(), user.getUsername()), HttpStatus.OK);
 	}
 
 	@GetMapping("/logout")
@@ -95,7 +92,6 @@ public class UserRestController {
 		User user = userQuery.orElse(null);
 		if (user == null) {
 			return new ResponseEntity<>("Usuario no encontrado.", HttpStatus.NOT_FOUND);
-
 		}
 
 		return new ResponseEntity<>(user, HttpStatus.OK);
