@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/shared/services/auth/user';
 
 @Component({
   selector: 'app-home',
