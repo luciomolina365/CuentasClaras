@@ -8,11 +8,14 @@ import {CrewComponent } from './pages/crew/crew.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
     children: [
 	 {
         path: 'crew',
         component: CrewComponent
+      },
+       {
+        path: 'home',
+        component: HomeComponent
       },
       {
         path: '**',

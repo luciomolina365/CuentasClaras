@@ -32,6 +32,7 @@ export class LoginComponent {
 					if (token) {
 						console.log('Inicio de sesión exitoso. Token:', token);
 						localStorage.setItem('token', token);
+						
 
 						// Aquí puedes almacenar el token en localStorage o en una cookie
 						// Luego, puedes redirigir al usuario a otra página o realizar otras acciones después del inicio de sesión

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryCrewService } from 'src/app/shared/services/category-crew/category-crew.service';
+//import { CategoryCrewService } from 'src/app/shared/services/category-crew/category-crew.service';
 import { CrewService } from 'src/app/shared/services/crew/crew.service';
-import * as jwt_decode from "jwt-decode";
 
 
 @Component({
@@ -28,29 +27,11 @@ export class CrewComponent {
   createCrew() {
    	const token = localStorage.getItem('token');
 
-if (token) {
-  try {
-    // Decodificar el token JWT
-    const decodedToken: any = jwt_decode(token);
-
-    // Acceder al campo del nombre de usuario
-    const username = decodedToken.sub;
-
-    console.log('Nombre de usuario:', username);
-  } catch (error) {
-    console.error('Error al decodificar el token:', error);
-  }
-} else {
-  console.error('No se encontró el token en el localStorage');
-}
-
-
-
 
     const crewData = {
       name: this.crewName,
       isPrivate: this.isPrivate,
-      membersList: [userId],
+      membersList: [1],
       category: this.category
     };
 
