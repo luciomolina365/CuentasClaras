@@ -97,9 +97,13 @@ public class CrewRestController {
 	@PutMapping("/{crewId}/update")
 	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request,
 			@PathVariable("crewId") Long crewId) {
+
+		if (!request.containsKey("category")) {
+			return new ResponseEntity<>("Campo 'category' no encontrado en la solicitud.", HttpStatus.BAD_REQUEST);
+		}
+
 		Optional<Crew> crewQuery = crewService.getById(crewId);
 		Crew crew = crewQuery.orElse(null);
-
 		if (crew == null) {
 			return new ResponseEntity<>("Grupo no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
 		}
@@ -107,7 +111,6 @@ public class CrewRestController {
 		Long categoryId = ((Number) request.get("category")).longValue();
 		Optional<CrewCategory> categoryQuery = crewCategoryService.getById(categoryId);
 		CrewCategory category = categoryQuery.orElse(null);
-
 		if (category == null) {
 			return new ResponseEntity<>("Categoría de grupo no encontrada con el ID proporcionado.",
 					HttpStatus.NOT_FOUND);
@@ -134,55 +137,68 @@ public class CrewRestController {
 	public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request,
 			@PathVariable("crewId") Long crewId) {
 
-		Optional<User> userQuery = userService.getById(Long.valueOf((Integer) request.get("belongsToId")));
-		User user = userQuery.orElse(null);
+		if (!request.containsKey("belongsToId") || !request.containsKey("categoryId")
+				|| !request.containsKey("splitwayId") || !request.containsKey("amount")) {
+			return new ResponseEntity<>("Campos requeridos no encontrados en la solicitud.", HttpStatus.BAD_REQUEST);
+		}
 
+		Long belongsToId = ((Number) request.get("belongsToId")).longValue();
+		Optional<User> userQuery = userService.getById(belongsToId);
+		User user = userQuery.orElse(null);
 		if (user == null) {
-			return new ResponseEntity<String>("Usuario no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Usuario no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
 		}
 
 		Optional<Crew> crewQuery = crewService.getById(crewId);
 		Crew crew = crewQuery.orElse(null);
-
 		if (crew == null) {
-			return new ResponseEntity<String>("Grupo no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Grupo no encontrado con el ID proporcionado.", HttpStatus.NOT_FOUND);
 		}
 
-		Optional<ExpenseCategory> categoryQuery = expenseCategoryService
-				.getById(Long.valueOf((Integer) request.get("belongsToId")));
+		Long categoryId = ((Number) request.get("categoryId")).longValue();
+		Optional<ExpenseCategory> categoryQuery = expenseCategoryService.getById(categoryId);
 		ExpenseCategory category = categoryQuery.orElse(null);
-
 		if (category == null) {
-			return new ResponseEntity<String>("Categoría de gasto no encontrada con el ID proporcionado.",
+			return new ResponseEntity<>("Categoría de gasto no encontrada con el ID proporcionado.",
 					HttpStatus.NOT_FOUND);
 		}
 
-		Optional<SplitWay> splitwayQuery = splitwayService.getById(Long.valueOf((Integer) request.get("splitwayId")));
+		Long splitwayId = ((Number) request.get("splitwayId")).longValue();
+		Optional<SplitWay> splitwayQuery = splitwayService.getById(splitwayId);
 		SplitWay splitway = splitwayQuery.orElse(null);
-
 		if (splitway == null) {
-			return new ResponseEntity<String>("Método de reparto no encontrado con el ID proporcionado.",
+			return new ResponseEntity<>("Método de reparto no encontrado con el ID proporcionado.",
 					HttpStatus.NOT_FOUND);
 		}
 
 		Date date = new Date();
-		Float amount = ((Double) request.get("amount")).floatValue();
+		Float amount = ((Number) request.get("amount")).floatValue();
 
 		Expense expense = new Expense(user, crew, amount, category, date, false, null, splitway);
 
 		crewService.createExpenseInCrew(crew, expense);
 
-		return new ResponseEntity<String>("Gasto creado en el grupo", HttpStatus.CREATED);
+		return new ResponseEntity<>("Gasto creado en el grupo", HttpStatus.CREATED);
 	}
 
-	@PutMapping("/expense/{expenseId}") // no funciona
-	public Expense updateExpense(@RequestBody Map<String, Object> expenseRequest,
+	@PutMapping("/expense/{expenseId}")
+	public ResponseEntity<Object> updateExpense(@RequestBody Map<String, Object> request,
 			@PathVariable("expenseId") Long expenseId) {
 
-		Date date = new Date((Long) expenseRequest.get("date"));
+		if (!request.containsKey("date")) {
+			return new ResponseEntity<Object>("Campo 'date' no encontrado en la solicitud.", HttpStatus.BAD_REQUEST);
+		}
 
-		return expenseService.updateExpense(expenseId, date);
+		try {
 
+			Date date = new Date((Long) request.get("date"));
+
+			Expense expense = expenseService.updateExpense(expenseId, date);
+
+			return new ResponseEntity<Object>(expense, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>("Error al procesar la solicitud.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{id}/expenses")

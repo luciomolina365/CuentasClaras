@@ -65,21 +65,21 @@ public class UserRestController {
 		}
 
 		String username = credentials.get("username");
-		String password = credentials.get("pass");
+		String pass = credentials.get("pass");
 
-		if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+		if (username == null || pass == null || username.isEmpty() || pass.isEmpty()) {
 			return new ResponseEntity<>("Credenciales inválidas", HttpStatus.UNAUTHORIZED);
 		}
 
-		Optional<User> userQuery = userService.authenticateWithUsernameAndPass(username, password);
+		Optional<User> userQuery = userService.authenticateWithUsernameAndPass(username, pass);
 		User user = userQuery.orElse(null);
 
-		if (user != null) {
-			return new ResponseEntity<>("Credenciales inválidas", HttpStatus.UNAUTHORIZED);
+		if (user == null) {
+			return new ResponseEntity<>("Usuario inválido", HttpStatus.UNAUTHORIZED);
 		}
 
 		String token = tokenServices.generateToken(user.getUsername(), EXPIRATION_IN_SEC);
-		return new ResponseEntity<>(new Credentials(token, EXPIRATION_IN_SEC, user.getUsername()), HttpStatus.OK);
+		return new ResponseEntity<>(new Credentials(token, EXPIRATION_IN_SEC, user.getUsername()), HttpStatus.OK); // SE PUEDE MANDAR EL ID TMB, (CAMBIAR DTO Credentials)
 	}
 
 	@GetMapping("/logout")
