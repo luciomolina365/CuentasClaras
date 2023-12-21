@@ -59,7 +59,7 @@ public class User {
 			@JoinColumn(name = "id_crew") })
 	private List<Crew> crewList;
 
-	@OneToMany(mappedBy = "user") 
+	@OneToMany(mappedBy = "user")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<FriendRequest> friendRequestList;
 
@@ -72,7 +72,6 @@ public class User {
 	private List<Expense> expenseList;
 
 	public User(String username, String lastname, String name, String email, String pass) {
-		super();
 		this.username = username;
 		this.lastname = lastname;
 		this.name = name;
@@ -86,10 +85,6 @@ public class User {
 		this.expenseList = null;
 		this.paymentList = null;
 
-	}
-
-	public User() {
-		super();
 	}
 
 	public Long getId() {
@@ -145,7 +140,11 @@ public class User {
 	}
 
 	public void setYouOwe(Float youOwe) {
-		this.youOwe = youOwe;
+		if (youOwe == null) {
+			this.youOwe = (float) 0;
+		} else {
+			this.youOwe = youOwe;
+		}
 	}
 
 	public Float getYouAreOwed() {
@@ -153,7 +152,11 @@ public class User {
 	}
 
 	public void setYouAreOwed(Float youAreOwed) {
-		this.youAreOwed = youAreOwed;
+		if (youAreOwed == null) {
+			this.youAreOwed = (float) 0;
+		} else {
+			this.youAreOwed = youAreOwed;
+		}
 	}
 
 	public List<Contact> getContacts() {
@@ -203,7 +206,6 @@ public class User {
 	public void setExpenseList(List<Expense> expenseList) {
 		this.expenseList = expenseList;
 	}
-	
 
 	@Override
 	public String toString() {

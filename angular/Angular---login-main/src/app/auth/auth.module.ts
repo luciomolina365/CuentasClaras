@@ -11,8 +11,7 @@ import { SigninComponent } from './signin/signin.component';
 @NgModule({
   declarations: [
     LoginComponent,
-    SigninComponent,
-    //SigninComponent
+    SigninComponent
   ],
   imports: [
     CommonModule,

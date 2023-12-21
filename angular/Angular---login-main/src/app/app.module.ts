@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptor} from './interceptor.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true}

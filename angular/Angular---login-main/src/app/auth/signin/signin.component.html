@@ -1,1 +1,41 @@
-<p>signin works!</p>
+<div class="container">
+	<h2>Registro de Usuario</h2>
+	<form [formGroup]="signinForm" (ngSubmit)="signin()">
+		<div class="form-group">
+			<label for="username">Usuario:</label>
+			<input type="text" id="username" formControlName="username" class="form-control" required>
+		</div>
+
+		<div class="form-group">
+			<label for="lastname">Apellido:</label>
+			<input type="text" id="lastname" formControlName="lastname" class="form-control" required>
+		</div>
+
+		<div class="form-group">
+			<label for="name">Nombre:</label>
+			<input type="text" id="name" formControlName="name" class="form-control" required>
+		</div>
+
+		<div class="form-group">
+			<label for="email">Correo electrónico:</label>
+			<input type="email" id="email" formControlName="email" class="form-control" required>
+		</div>
+
+		<div class="form-group">
+			<label for="pass">Contraseña:</label>
+			<input type="password" id="pass" formControlName="pass" class="form-control" required>
+		</div>
+
+		<div class="form-group">
+			<label for="confirmPass">Confirmar Contraseña:</label>
+			<input type="password" id="confirmPass" formControlName="confirmPass" class="form-control" required>
+			<div *ngIf="signinForm.hasError('passwordMismatch')">
+				<p class="text-danger">Las contraseñas no coinciden.</p>
+			</div>
+		</div>
+
+
+
+		<button type="submit" [disabled]="!signinForm.valid" class="btn btn-primary">Registrarse</button>
+	</form>
+</div>

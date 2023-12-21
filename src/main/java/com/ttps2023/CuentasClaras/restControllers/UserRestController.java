@@ -39,7 +39,7 @@ public class UserRestController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<String> createUser(@RequestBody User user) {
+	public ResponseEntity<Object> createUser(@RequestBody User user) {
 
 		if (user == null || user.getUsername() == null || user.getPass() == null) {
 			return new ResponseEntity<>("Datos de usuario incorrectos o faltantes.", HttpStatus.BAD_REQUEST);
@@ -53,7 +53,7 @@ public class UserRestController {
 
 		userService.create(user);
 
-		return new ResponseEntity<>("Usuario creado", HttpStatus.CREATED);
+		return new ResponseEntity<Object>(user, HttpStatus.CREATED);
 
 	}
 
