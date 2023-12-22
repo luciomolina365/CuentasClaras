@@ -118,7 +118,7 @@ public class CrewRestController {
 	@PutMapping("/{crewId}/update")
 	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request,
 			@PathVariable("crewId") Long crewId) {
-
+	
 		if (!request.containsKey("category")) {
 			return new ResponseEntity<>("Campo 'category' no encontrado en la solicitud.", HttpStatus.BAD_REQUEST);
 		}

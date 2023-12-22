@@ -5,8 +5,8 @@
 <div *ngIf="crewList && crewList.length > 0; else noCrewMessage">
   <ul>
     <li *ngFor="let crew of crewList">
-      {{ crew.name }} - {{ crew.category.name }}
-      <button (click)="editCrew(crew.id)">Editar</button>
+      {{ crew.name }} 
+      <button (click)="editCrew(crew.id)">Editar</button> <!-- Asegúrate de pasar crew.id -->
     </li>
   </ul>
 </div>

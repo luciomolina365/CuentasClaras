@@ -22,7 +22,7 @@ import jakarta.persistence.Table;
 public class Crew {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(access = Access.WRITE_ONLY)
+	//@JsonProperty(access = Access.WRITE_ONLY)
     private Long id;
 	
 	@Column(name = "name")

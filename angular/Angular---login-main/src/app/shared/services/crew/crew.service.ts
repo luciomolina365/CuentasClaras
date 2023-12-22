@@ -33,15 +33,17 @@ export class CrewService {
 		}
 	}
 
-	editCrew(crewId: number, crewData: any): Observable<any> {
-		
+editCrew(crewId: number, crewData: any): Observable<any> {
+  const id: number = +crewId;
+  const url = `http://localhost:8080/crew/${id}/update`;
+  crewData.category= +crewData.category;
+  
+  console.log(crewData)
 
-			const id: number = +crewId;
+  return this.http.put(url, crewData);
+}
 
-		const url = `http://localhost:8080/crew/${crewId}/update`;
 
-		return this.http.put(url, crewData);
-	}
 
 	setEditingCrewId(crewId: number | null) {
 		this.editingCrewId = crewId;
@@ -51,9 +53,9 @@ export class CrewService {
 		return this.editingCrewId;
 	}
 	
-	getCrewById(crewId: number): Observable<Crew> {
-		
+	getCrew(crewId: number): Observable<Crew> {
 	const id: number = +crewId;
+	
     const url = `http://localhost:8080/crew/${id}`;  // Ajusta la URL según tu API
     return this.http.get<Crew>(url);
   }
