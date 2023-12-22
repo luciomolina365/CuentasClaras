@@ -209,6 +209,9 @@ public class CrewRestController {
 	@GetMapping("/{id}/expenses")
 	public ResponseEntity<List<Expense>> getCrewExpenses(@PathVariable Long id) {
 		List<Expense> crewExpenses = crewService.crewExpenseList(id);
+		if (crewExpenses == null || crewExpenses.isEmpty()) {
+			return new ResponseEntity<>(crewExpenses, HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(crewExpenses, HttpStatus.OK);
 	}
 
