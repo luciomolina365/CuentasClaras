@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'app-crew',
 	templateUrl: './crew.component.html',
-	  styleUrls: ['./crew.component.scss']
+	//  styleUrls: ['./crew.component.scss']
 })
 export class CrewComponent implements OnInit {
 

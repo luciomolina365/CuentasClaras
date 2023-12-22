@@ -25,8 +25,8 @@ import com.ttps2023.CuentasClaras.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-//@CrossOrigin(origins = { "http://localhost:4200" })
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = { "http://localhost:4200" })
+//@CrossOrigin(origins = "*")
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
 

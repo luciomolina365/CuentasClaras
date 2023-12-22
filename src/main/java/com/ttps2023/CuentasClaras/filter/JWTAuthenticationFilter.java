@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.ttps2023.CuentasClaras.services.TokenServices;
 
@@ -17,7 +18,8 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName = "jwt-auth-filter", urlPatterns = "/*")  ////   "/*"
+@CrossOrigin(origins = "*")
+@WebFilter(filterName = "jwt-auth-filter", urlPatterns = "/test")  ////   "/*"
 public class JWTAuthenticationFilter implements Filter {
 
 	private static final String AUTH_PATH = "/user/create";

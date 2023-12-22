@@ -32,8 +32,8 @@ import com.ttps2023.CuentasClaras.services.SplitWayService;
 import com.ttps2023.CuentasClaras.services.UserService;
 
 @RestController
-//@CrossOrigin(origins = { "http://localhost:4200" })
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = { "http://localhost:4200" })
+//@CrossOrigin(origins = "*")
 @RequestMapping(value = "/crew", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CrewRestController {
 
