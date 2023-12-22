@@ -5,8 +5,8 @@
 <div *ngIf="expenseList && expenseList.length > 0; else noExpenseMessage">
   <ul>
     <li *ngFor="let expense of expenseList">
-      {{ expense.name }} - {{ expense.amount }}
-      <button (click)="editExpense(expense.id)">Editar</button>
+      {{ expense.name }} - {{ expense.amount }} - {{ expense.date }}
+      <button (click)="editExpense(expense.id, expense.name)">Editar</button>
     </li>
   </ul>
 </div>

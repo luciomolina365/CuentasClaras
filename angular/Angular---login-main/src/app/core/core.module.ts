@@ -14,10 +14,11 @@ import { ExpenseListComponent } from './menu/pages/expense-list/expense-list.com
 
 import { ExpenseComponent } from './menu/pages/expense/expense.component';
 import { CrewInfoComponent } from './menu/pages/crew-info/crew-info.component';
+import { ExpenseEditComponent } from './menu/pages/expense-edit/expense-edit.component';
 
 
 @NgModule({
-	declarations: [MenuComponent, CrewComponent, CrewListComponent, CrewInfoComponent, ExpenseListComponent, ExpenseComponent],
+	declarations: [MenuComponent, CrewComponent, CrewListComponent, CrewInfoComponent, ExpenseListComponent, ExpenseComponent, ExpenseEditComponent],
 	imports: [CommonModule,
 		FormsModule, CoreRoutingModule, ReactiveFormsModule],
 	exports: [MenuComponent,

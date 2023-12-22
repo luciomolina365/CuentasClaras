@@ -1,0 +1,20 @@
+<!-- expense-edit.component.html -->
+
+<form [formGroup]="expenseForm">
+  <div>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name" />
+  </div>
+
+  <div>
+    <label for="date">Fecha:</label>
+    <input type="date" id="date" formControlName="date" />
+  </div>
+
+  <!-- Puedes agregar más campos según sea necesario -->
+
+  <div class="buttons">
+    <button type="submit" [disabled]="expenseForm.invalid">Guardar</button>
+    <button type="button">Cancelar</button>
+  </div>
+</form>

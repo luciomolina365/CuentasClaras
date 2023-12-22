@@ -29,14 +29,17 @@ export class ExpenseListComponent implements OnInit {
       );
   }
 
-  editExpense(expenseId: number) {
-    // Almacena la ID del gasto que se va a editar
-    console.log("*********************************************");
-    console.log(expenseId);
-    console.log("*********************************************");
-    this.expenseService.setEditingExpenseId(expenseId);
-    this.router.navigate(["/home/expense"]);
-  }
+
+  editExpense(expenseId: number, expenseName: string) {
+	  // Almacena la ID del gasto que se va a editar
+	  const crewName = localStorage.getItem("crewName");
+	  localStorage.setItem("expenseId", expenseId.toString());
+
+	  // Navegar a la ruta correspondiente con el nombre del gasto y el nombre del gasto específico
+	  this.router.navigate(['/home/crew-info', crewName, expenseName, 'edit']);
+	}
+
+
   
   
   onCrewItemClick(id: number, name: string): void {
