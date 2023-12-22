@@ -2,6 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CrewService } from 'src/app/shared/services/crew/crew.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-crew-list',
@@ -11,11 +12,12 @@ export class CrewListComponent implements OnInit {
 
   crewList: any[] = [];
 
-  constructor(private crewService: CrewService) {}
+  constructor(private crewService: CrewService, private router: Router) {} 
 
   ngOnInit() {
     this.getCrewList();
   }
+
 
   getCrewList() {
     this.crewService.getCrewList()
@@ -24,8 +26,21 @@ export class CrewListComponent implements OnInit {
           this.crewList = data;
         },
         error => {
-          console.error('Error al obtener la lista de crew:', error);
+          console.error('Error al obtener la lista de grupos: ', error);
         }
       );
   }
+  
+  onCrewItemClick(id: number, name: string): void {
+	  
+	  localStorage.setItem("crewId", id.toString())
+
+	    this.router.navigate(['/home/crew-info/', name]);
+	  }
+	  
+  
+
 }
+
+
+

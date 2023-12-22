@@ -1,0 +1,8 @@
+<!-- crew-info.component.html -->
+<app-menu></app-menu>
+<div *ngIf="crewData">
+	<h2>{{ crewData.name }}</h2>
+	<p>Active: {{ crewData.active ? 'Yes' : 'No' }}</p>
+	<p>Private: {{ crewData.isPrivate ? 'Yes' : 'No' }}</p>
+	<p>Category: {{ crewData.category?.name }}</p>
+</div>

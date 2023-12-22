@@ -1,11 +1,13 @@
 <!-- crew-list.component.html -->
-
+<app-menu></app-menu>
 <h2>Listado de Crew</h2>
 
 <div *ngIf="crewList && crewList.length > 0; else noCrewMessage">
   <ul>
-    <li *ngFor="let crew of crewList">
-      {{ crew.name }} - {{ crew.category }}
+    <li *ngFor="let crew of crewList" role="link">
+      <button (click)="onCrewItemClick(crew.id, crew.name)">
+        {{ crew.name }} - {{ crew.category.name }}
+      </button>
     </li>
   </ul>
 </div>

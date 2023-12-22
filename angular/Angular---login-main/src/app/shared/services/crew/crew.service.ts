@@ -31,6 +31,11 @@ export class CrewService {
 	    return EMPTY; 
 	  }
 	}
+  
+  getCrew(crewId: number): Observable<any> {
+	    const url = `http://localhost:8080/crew/${crewId}`;
+	    return this.http.get<any>(url);
+  }
 
 }
   

@@ -32,7 +32,8 @@ import com.ttps2023.CuentasClaras.services.SplitWayService;
 import com.ttps2023.CuentasClaras.services.UserService;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" })
+//@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/crew", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CrewRestController {
 
@@ -95,25 +96,20 @@ public class CrewRestController {
 		return new ResponseEntity<Object>(crew, HttpStatus.CREATED);
 
 	}
-	
-	
+
 	@GetMapping("/{crewId}")
 	public ResponseEntity<Object> getCrew(@PathVariable("crewId") Long crewId) {
-		
+
 		Crew crew = crewService.getById(crewId).orElse(null);
-		
+
 		if (crew == null) {
+
 			return new ResponseEntity<>("Grupo no encontrado.", HttpStatus.NOT_FOUND);
 		}
-		
-		return new ResponseEntity<Object>(crew,HttpStatus.ACCEPTED);
 
-		
+		return new ResponseEntity<Object>(crew, HttpStatus.ACCEPTED);
+
 	}
-	
-	
-	
-	
 
 	@PutMapping("/{crewId}/update")
 	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request,
