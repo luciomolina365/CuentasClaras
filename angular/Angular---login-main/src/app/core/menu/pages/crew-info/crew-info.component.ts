@@ -16,11 +16,6 @@ export class CrewInfoComponent implements OnInit {
   constructor(private crewService: CrewService, private route: ActivatedRoute) {
 	  this.route.params.subscribe(params => {
 	    const name = params['name'];
-
-	    if (name) {
-	    	
-	      console.log('Crew name:', name);
-	    }
 	  });
 	}
   ngOnInit() {
@@ -47,4 +42,9 @@ export class CrewInfoComponent implements OnInit {
       }
     );
   }
+  
+//  ngOnDestroy() {
+	//  localStorage.removeItem("crewId");
+	  //}
+  
 }

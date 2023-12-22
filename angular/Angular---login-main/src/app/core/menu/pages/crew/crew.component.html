@@ -1,9 +1,9 @@
 <div class="container">
-  <h2>{{ editingCrewId !== null ? 'Editar' : 'Crear' }} Tripulación</h2>
+  <h2>{{ editingCrewId !== null ? 'Editar' : 'Crear' }} Grupo</h2>
 
   <form (ngSubmit)="createOrEditCrew()">
     <div class="form-group">
-      <label for="crewName">Nombre de la Tripulación:</label>
+      <label for="crewName">Nombre de la Grupo:</label>
       <input [(ngModel)]="crewName" name="crewName" type="text" class="form-control" required>
     </div>
 
@@ -25,7 +25,7 @@
     </div>
     <br>
 
-    <button type="submit" class="btn btn-primary">{{ editingCrewId !== null ? 'Guardar cambios' : 'Crear Tripulación' }}</button>
+    <button type="submit" class="btn btn-primary">{{ editingCrewId !== null ? 'Guardar cambios' : 'Crear Grupo' }}</button>
   </form>
 
   <!-- Muestra información de la tripulación existente cuando estás en modo de edición -->

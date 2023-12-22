@@ -32,19 +32,18 @@ export class CrewListComponent implements OnInit {
   
   onCrewItemClick(id: number, name: string): void {
 	  
-	  localStorage.setItem("crewId", id.toString())
+	  localStorage.setItem("crewId", id.toString());
+	  
+	  localStorage.setItem("crewName", name);
 
 	    this.router.navigate(['/home/crew-info/', name]);
 	  }
 	  
   
 
-}
-
-
-
    editCrew(crewId: number) {
     this.crewService.setEditingCrewId(crewId);
     this.router.navigate(["/home/crew"]);
   
-}}
+	}
+}

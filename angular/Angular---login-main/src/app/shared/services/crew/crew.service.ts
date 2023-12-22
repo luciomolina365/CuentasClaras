@@ -19,11 +19,12 @@ export class CrewService {
 
 	}
   
-  getCrew(crewId: number): Observable<any> {
-	    const url = `http://localhost:8080/crew/${crewId}`;
-	    return this.http.get<any>(url);
-  }
 
+	getCrew(crewId: number): Observable<Crew> {
+	const id: number = +crewId;
+    const url = `http://localhost:8080/crew/${id}`; 
+    return this.http.get<Crew>(url);
+  }
 	getCrewList(): Observable<any[]> {
 		const idString = localStorage.getItem("id");
 
@@ -38,15 +39,15 @@ export class CrewService {
 		}
 	}
 
-editCrew(crewId: number, crewData: any): Observable<any> {
-  const id: number = +crewId;
-  const url = `http://localhost:8080/crew/${id}/update`;
-  crewData.category= +crewData.category;
-  
-  console.log(crewData)
-
-  return this.http.put(url, crewData);
-}
+	editCrew(crewId: number, crewData: any): Observable<any> {
+	  const id: number = +crewId;
+	  const url = `http://localhost:8080/crew/${id}/update`;
+	  crewData.category= +crewData.category;
+	  
+	  console.log(crewData)
+	
+	  return this.http.put(url, crewData);
+	}
 
 
 
@@ -58,12 +59,6 @@ editCrew(crewId: number, crewData: any): Observable<any> {
 		return this.editingCrewId;
 	}
 	
-	getCrew(crewId: number): Observable<Crew> {
-	const id: number = +crewId;
-	
-    const url = `http://localhost:8080/crew/${id}`;  // Ajusta la URL según tu API
-    return this.http.get<Crew>(url);
-  }
 	
 	
 }

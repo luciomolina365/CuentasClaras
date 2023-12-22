@@ -6,12 +6,17 @@ import {CrewComponent } from './menu/pages/crew/crew.component';
 import {MenuComponent } from './menu/menu.component';
 import {CrewListComponent } from './menu/pages/crew-list/crew-list.component';
 import {CrewInfoComponent} from './menu/pages/crew-info/crew-info.component';
+import {ExpenseComponent} from './menu/pages/expense/expense.component';
 
 const routes: Routes = [
                         {
                           path: 'crew-info/:name',
                           component: CrewInfoComponent
                         },
+                        {
+                            path: 'crew-info/:name/expense', ///otro routing??
+                            component: ExpenseComponent
+                          },
                         {
                           path: 'crewList',
                           component: CrewListComponent

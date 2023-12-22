@@ -37,4 +37,21 @@ export class ExpenseListComponent implements OnInit {
     this.expenseService.setEditingExpenseId(expenseId);
     this.router.navigate(["/home/expense"]);
   }
+  
+  
+  onCrewItemClick(id: number, name: string): void {
+	  
+	  localStorage.setItem("crewId", id.toString())
+
+	    this.router.navigate(['/home/crew-info/', name]);
+	  }
+  
+  goToExpenseComponent() {
+	  console.log(Object.keys(localStorage));
+	  const name = localStorage.getItem("crewName");
+	  this.router.navigate([`/home/crew-info/${name}/expense`]);
+	}
+
+  
+  
 }
