@@ -26,12 +26,27 @@ export class ExpenseService {
   }
 
   getExpense(expenseId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/expense/${expenseId}`);
-  }
+	  const expenseEditId=localStorage.getItem("expenseId")
+	  
+	  
+	  if (expenseEditId) {
+			const id: number = +expenseEditId;
+	  
+	  
+	  	const idEx:number=+expenseEditId
+	 
+	  
+    return this.http.get<any>(`${this.baseUrl}/expense/${idEx}`);
+    } else {
+			console.error('El valor de id en localStorage es nulo o indefinido.');
+			return EMPTY;
+		}
+	}
+    
 
   saveOrUpdateExpense(expenseData: any): Observable<any> {
 	  
-	  const isUpdate = expenseData.id != null;
+	  const isUpdate = expenseData.expenseId != null;
 
 
 	  let url: string;
@@ -39,7 +54,7 @@ export class ExpenseService {
 	  let requestMethod: string;
 	  if (isUpdate) {
 
-	    url = `${this.baseUrl}/expense/${expenseData.id}`;
+	    url = `${this.baseUrl}/expense/${expenseData.expenseId}`;
 	    requestMethod = 'PUT';
 	  } else {
 

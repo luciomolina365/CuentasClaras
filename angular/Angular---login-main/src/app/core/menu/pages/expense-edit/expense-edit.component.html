@@ -1,6 +1,6 @@
 <!-- expense-edit.component.html -->
 
-<form [formGroup]="expenseForm">
+<form [formGroup]="expenseForm" (submit)="updateExpense()">
   <div>
     <label for="name">Nombre:</label>
     <input type="text" id="name" formControlName="name" />

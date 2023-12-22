@@ -203,7 +203,7 @@ public class CrewRestController {
 	@PutMapping("/expense/{expenseId}")
 	public ResponseEntity<Object> updateExpense(@RequestBody Map<String, Object> request,
 			@PathVariable("expenseId") Long expenseId) {
-
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		if (!request.containsKey("date")) {
 			return new ResponseEntity<Object>("Campo 'date' no encontrado en la solicitud.", HttpStatus.BAD_REQUEST);
 		}
@@ -227,6 +227,20 @@ public class CrewRestController {
 			return new ResponseEntity<>(crewExpenses, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(crewExpenses, HttpStatus.OK);
+	}
+	
+	@GetMapping("/expense/{expenseId}")
+	public ResponseEntity<Object> getExpense(@PathVariable("expenseId") Long expenseId) {
+
+		Expense expense = expenseService.getById(expenseId).orElse(null);
+
+		if (expense == null) {
+
+			return new ResponseEntity<>("Gasto no encontrado.", HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Object>(expense, HttpStatus.ACCEPTED);
+
 	}
 
 }
