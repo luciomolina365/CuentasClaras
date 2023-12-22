@@ -1,90 +1,78 @@
-// expense.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from 'src/app/shared/services/expense/expense.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
 })
 export class ExpenseComponent implements OnInit {
+  expenseForm: FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    belongsToId: [null],
+    amount: [null, [Validators.required, Validators.min(0)]],
+    splitwayId: [null, Validators.required],
+    crewId: [null],
+    categoryId: [null, Validators.required],
+  });
 
-  expenseData: any = {//setear los category, belongs to , crew id y splitway
+  expenseData: any = {
     name: '',
+    belongsToId: null,
     amount: null,
     splitwayId: null,
-    categoryId: null
+    crewId: null,
+    categoryId: null,
   };
-  editingExpenseId: number | null = null;
-  existingExpense: any | null = null;
+  
 
-  constructor(private expenseService: ExpenseService, private router: Router) {}
+  constructor(
+    private expenseService: ExpenseService,
+    private router: Router,
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit() {
-    this.editingExpenseId = this.expenseService.getEditingExpenseId();
-
-    if (this.editingExpenseId !== null) {
-      this.expenseService.getExpense(this.editingExpenseId).subscribe(
-        (existingExpense: any) => {
-          this.existingExpense = existingExpense;
-
-          this.expenseData = {
-            name: existingExpense.name,
-            amount: existingExpense.amount,
-            splitwayId: existingExpense.splitwayId,
-            categoryId: existingExpense.categoryId
-          };
-        },
-        (error: any) => {
-          console.error('Error al obtener la información del gasto existente:', error);
-        }
-      );
-    }
+		
   }
+  
+  
 
-  createOrEditExpense() {
-    if (this.editingExpenseId !== null) {
-      const expenseData = {
-        name: this.expenseData.name,
-        amount: this.expenseData.amount,
-        splitwayId: this.expenseData.splitwayId,
-        categoryId: this.expenseData.categoryId
-      };
+  onSubmit() {
+	  if (this.expenseForm.valid) {
+	    const formData = this.expenseForm.value;
+	    console.log(formData);
 
-      this.expenseService.editExpense(this.editingExpenseId, expenseData)
-        .subscribe(
-         (response: any) => {
-            console.log('Gasto editado con éxito:', response);
-            this.resetForm();
-          },
-          (error: any) => {
-            console.error('Error al editar el gasto:', error);
-          }
-        );
-    } else {
-      this.expenseService.createExpense(this.expenseData)
-        .subscribe(
-          (response: any) => {
-            console.log('Gasto creado con éxito:', response);
-            this.resetForm();
-          },
-          (error: any) => {
-            console.error('Error al crear el gasto:', error);
-          }
-        );
-    }
+	    const crewId = localStorage.getItem('crewId');
+	    if (crewId) {
+	      const id: number = +crewId; 
+	      formData.crewId = id;
+	    } else {
+	      console.error('CrewId no está en localStorage.');
+	    }
 
-    this.expenseService.setEditingExpenseId(null);
-    this.router.navigate(['/home/expenseList']);
-  }
+	    const userId = localStorage.getItem('id');
+	    if (userId) {
+	      const id: number = +userId;
+	      formData.belongsToId = id;
+	    } else {
+	      console.error('UserId no está en localStorage.');
+	    }	
 
-  resetForm() {
-    this.expenseData = {
-      name: '',
-      amount: null,
-      splitwayId: null,
-      categoryId: null
-    };
-    this.editingExpenseId = null;
-  }
+	    this.expenseService.saveOrUpdateExpense(formData).subscribe(
+	      (response) => {
+	        console.log('Gasto guardado correctamente:', response);
+	        const name = localStorage.getItem("crewName");
+	        this.router.navigate(['/home/crew-info/', name]);
+	      },
+	      (error) => {
+	        console.error('Error al guardar el gasto:', error);
+	      }
+	    );
+	  }
+	}
+
+
 }

@@ -1,1 +1,45 @@
-<p>expense works!</p>
+<!-- expense.component.html -->
+<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name" />
+    <div *ngIf="expenseForm.get('name')?.hasError('required') && expenseForm.get('name')?.touched">
+      El nombre es obligatorio.
+    </div>
+  </div>
+  <div>
+    <label for="amount">Monto:</label>
+    <input type="number" id="amount" formControlName="amount" />
+    <div *ngIf="expenseForm.get('amount')?.hasError('required') && expenseForm.get('amount')?.touched">
+      El monto es obligatorio.
+    </div>
+    <div *ngIf="expenseForm.get('amount')?.hasError('min') && expenseForm.get('amount')?.touched">
+      El monto debe ser mayor o igual a 0.
+    </div>
+  </div>
+
+  <div>
+    <label for="splitwayId">Forma de reparto:</label>
+    <select id="splitwayId" formControlName="splitwayId">
+      <option value=1>A partes iguales</option>
+    </select>
+    <div *ngIf="expenseForm.get('splitwayId')?.hasError('required') && expenseForm.get('splitwayId')?.touched">
+      La forma de reparto es obligatoria.
+    </div>
+  </div>
+
+  <div>
+    <label for="categoryId">Categoría:</label>
+    <select id="categoryId" formControlName="categoryId">
+      <option value=1>Combustible</option>
+      <option value=2>Alojamiento</option>
+      <option value=3>Comida</option>
+      <option value=4>Otro</option>
+    </select>
+    <div *ngIf="expenseForm.get('categoryId')?.hasError('required') && expenseForm.get('categoryId')?.touched">
+      La categoría es obligatoria.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!expenseForm.valid">Guardar</button>
+</form>

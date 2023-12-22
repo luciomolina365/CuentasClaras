@@ -114,7 +114,7 @@ public class CrewRestController {
 	@PutMapping("/{crewId}/update")
 	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request,
 			@PathVariable("crewId") Long crewId) {
-	
+
 		if (!request.containsKey("category")) {
 			return new ResponseEntity<>("Campo 'category' no encontrado en la solicitud.", HttpStatus.BAD_REQUEST);
 		}
@@ -151,12 +151,8 @@ public class CrewRestController {
 	}
 
 	@PostMapping("/{crewId}/expense")
-	public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request,
+	public ResponseEntity<Object> createExpenseInCrew(@RequestBody Map<String, Object> request,
 			@PathVariable("crewId") Long crewId) {
-
-		System.out.println("///////////////////////////////");
-		System.out.println("entra a expense");
-		System.out.println("///////////////////////////////");
 
 		if (!request.containsKey("name") || !request.containsKey("belongsToId") || !request.containsKey("categoryId")
 				|| !request.containsKey("splitwayId") || !request.containsKey("amount")) {
@@ -201,7 +197,7 @@ public class CrewRestController {
 
 		crewService.createExpenseInCrew(crew, expense);
 
-		return new ResponseEntity<>("Gasto creado en el grupo", HttpStatus.CREATED);
+		return new ResponseEntity<Object>(expense, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/expense/{expenseId}")
