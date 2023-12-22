@@ -14,7 +14,7 @@ export class ExpenseService {
   constructor(private http: HttpClient) {}
 
   getExpenseList(): Observable<any[]> {
-    const idString = localStorage.getItem("expenseId");
+    const idString = localStorage.getItem("crewId");
 
     if (idString) {
       const id: number = +idString;

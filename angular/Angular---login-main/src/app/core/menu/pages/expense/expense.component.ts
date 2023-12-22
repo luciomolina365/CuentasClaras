@@ -43,7 +43,6 @@ export class ExpenseComponent implements OnInit {
   onSubmit() {
 	  if (this.expenseForm.valid) {
 	    const formData = this.expenseForm.value;
-	    console.log(formData);
 
 	    const crewId = localStorage.getItem('crewId');
 	    if (crewId) {
