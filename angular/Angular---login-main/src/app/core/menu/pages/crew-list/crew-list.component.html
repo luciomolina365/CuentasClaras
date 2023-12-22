@@ -1,0 +1,15 @@
+<!-- crew-list.component.html -->
+
+<h2>Listado de Crew</h2>
+
+<div *ngIf="crewList && crewList.length > 0; else noCrewMessage">
+  <ul>
+    <li *ngFor="let crew of crewList">
+      {{ crew.name }} - {{ crew.category }}
+    </li>
+  </ul>
+</div>
+
+<ng-template #noCrewMessage>
+  <p>No estás inscrito en ningún grupo.</p>
+</ng-template>

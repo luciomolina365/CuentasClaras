@@ -35,6 +35,9 @@ public class Expense {
 	@Column(name = "date")
 	private Date date;
 
+	@Column(name = "name")
+	private String name;
+
 	@ManyToOne
 	private User belongsTo;
 
@@ -55,13 +58,10 @@ public class Expense {
 	@JoinColumn(name = "splitway_id")
 	private SplitWay splitway;
 
-	public Expense() {
+	public Expense() {}
 
-	}
-
-	public Expense(User belongsTo, Crew crew, Float amount, ExpenseCategory category, Date date, Boolean isPaid,
+	public Expense(String name, User belongsTo, Crew crew, Float amount, ExpenseCategory category, Date date, Boolean isPaid,
 			List<Payment> paymentList, SplitWay splitway) {
-		super();
 		this.belongsTo = belongsTo;
 		this.crew = crew;
 		this.amount = amount;
@@ -70,6 +70,7 @@ public class Expense {
 		this.isPaid = isPaid;
 		this.paymentList = paymentList;
 		this.splitway = splitway;
+		this.name = name;
 	}
 
 	public Long getId() {
@@ -142,5 +143,13 @@ public class Expense {
 
 	public void setSplitway(SplitWay splitway) {
 		this.splitway = splitway;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

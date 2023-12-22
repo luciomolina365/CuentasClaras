@@ -139,10 +139,16 @@ public class CrewRestController {
 	public ResponseEntity<String> createExpenseInCrew(@RequestBody Map<String, Object> request,
 			@PathVariable("crewId") Long crewId) {
 
-		if (!request.containsKey("belongsToId") || !request.containsKey("categoryId")
+		System.out.println("///////////////////////////////");
+		System.out.println("entra a expense");
+		System.out.println("///////////////////////////////");
+
+		if (!request.containsKey("name") || !request.containsKey("belongsToId") || !request.containsKey("categoryId")
 				|| !request.containsKey("splitwayId") || !request.containsKey("amount")) {
 			return new ResponseEntity<>("Campos requeridos no encontrados en la solicitud.", HttpStatus.BAD_REQUEST);
 		}
+
+		String name = (String) request.get("name");
 
 		Long belongsToId = ((Number) request.get("belongsToId")).longValue();
 		Optional<User> userQuery = userService.getById(belongsToId);
@@ -176,7 +182,7 @@ public class CrewRestController {
 		Date date = new Date();
 		Float amount = ((Number) request.get("amount")).floatValue();
 
-		Expense expense = new Expense(user, crew, amount, category, date, false, null, splitway);
+		Expense expense = new Expense(name, user, crew, amount, category, date, false, null, splitway);
 
 		crewService.createExpenseInCrew(crew, expense);
 
@@ -206,6 +212,9 @@ public class CrewRestController {
 	@GetMapping("/{id}/expenses")
 	public ResponseEntity<List<Expense>> getCrewExpenses(@PathVariable Long id) {
 		List<Expense> crewExpenses = crewService.crewExpenseList(id);
+		if (crewExpenses == null || crewExpenses.isEmpty()) {
+			return new ResponseEntity<>(crewExpenses, HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(crewExpenses, HttpStatus.OK);
 	}
 

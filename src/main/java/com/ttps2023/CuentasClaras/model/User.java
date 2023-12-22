@@ -143,11 +143,8 @@ public class User {
 	}
 
 	public void setYouOwe(Float youOwe) {
-		if (youOwe == null) {
-			this.youOwe = (float) 0;
-		} else {
-			this.youOwe = youOwe;
-		}
+		this.youOwe = youOwe;
+
 	}
 
 	public Float getYouAreOwed() {
@@ -155,20 +152,17 @@ public class User {
 	}
 
 	public void setYouAreOwed(Float youAreOwed) {
-		if (youAreOwed == null) {
-			this.youAreOwed = (float) 0;
-		} else {
-			this.youAreOwed = youAreOwed;
-		}
+		this.youAreOwed = youAreOwed;
+
 	}
 
-	public List<Contact> getContacts() {
-		return contactList;
-	}
-
-	public void setContacts(List<Contact> contacts) {
-		this.contactList = contacts;
-	}
+//	public List<Contact> getContacts() {
+//		return contactList;
+//	}
+//
+//	public void setContacts(List<Contact> contacts) {
+//		this.contactList = contacts;
+//	}
 
 	public List<Contact> getContactList() {
 		return contactList;

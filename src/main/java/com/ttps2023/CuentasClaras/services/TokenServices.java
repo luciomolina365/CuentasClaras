@@ -1,7 +1,7 @@
 package com.ttps2023.CuentasClaras.services;
 
 import java.util.Date;
-import java.util.Optional;
+
 
 import javax.crypto.SecretKey;
 
@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 
-import com.ttps2023.CuentasClaras.services.UserService;
+
 
 
 @Service
@@ -60,7 +60,7 @@ public class TokenServices {
 		} catch (ExpiredJwtException exp) {
 			return false;
 		} catch (JwtException e) {
-			return false; // Algo salio mal en la verificacion
+			return false; 
 		}
 	}
 

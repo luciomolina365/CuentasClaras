@@ -32,12 +32,13 @@ export class LoginComponent {
                     const token = response.token;
                     if (token) {
                         console.log('Inicio de sesión exitoso. Token:', token);
-
+						
+						
                         localStorage.setItem('token', token);
                         localStorage.setItem('id', response.id);
                         localStorage.setItem('username', response.username);
 
-                        this.router.navigate(['/menu/home']);
+                        this.router.navigate(['/home/menu']);
                         
                     } else {
                         console.log('Inicio de sesión fallido. Token no recibido.');

@@ -1,25 +1,31 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './pages/home/home.component';
-import {CrewComponent } from './pages/crew/crew.component';
+
+import {CrewComponent } from './menu/pages/crew/crew.component';
+import {MenuComponent } from './menu/menu.component';
+import {CrewListComponent } from './menu/pages/crew-list/crew-list.component';
 
 
 const routes: Routes = [
   {
     path: '',
     children: [
+		 {
+        path: 'crewList',
+        component: CrewListComponent
+      },
 	 {
         path: 'crew',
         component: CrewComponent
       },
        {
-        path: 'home',
-        component: HomeComponent
+        path: 'menu',
+        component: MenuComponent
       },
       {
         path: '**',
-        redirectTo: 'home'
+        redirectTo: 'menu'
       }
     ]
   }
@@ -33,5 +39,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class MenuRoutingModule { }
+export class CoreRoutingModule { }
 
