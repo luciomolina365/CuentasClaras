@@ -7,6 +7,7 @@ import { Crew } from './crew';
   providedIn: 'root'
 })
 export class CrewService {
+	
 
  // private apiUrl = 'http://localhost:8080/crews'; // Reemplaza con la URL de tu API
 
@@ -18,10 +19,11 @@ export class CrewService {
   }
   
    getCrewList(): Observable<any[]> {
-    return this.http.get<any[]>("http://localhost:8080/crew/user-id/crewList");//local storage creo q si lo trees va
+   const url = `http://localhost:8080/crew/user-id/${localStorage.getItem("token")}/crewList`;
+    return this.http.get<any[]>(url);
   }
-  
-  
-  
-  
 }
+  
+  
+  
+
