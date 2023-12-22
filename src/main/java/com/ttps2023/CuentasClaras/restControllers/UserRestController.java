@@ -46,6 +46,14 @@ public class UserRestController {
 			return new ResponseEntity<>("Datos de usuario incorrectos o faltantes.", HttpStatus.BAD_REQUEST);
 		}
 
+		if (user.getYouAreOwed() == null) {
+			user.setYouAreOwed((float) 0);
+		}
+
+		if (user.getYouOwe() == null) {
+			user.setYouOwe((float) 0);
+		}
+
 		if (userService.existsByUsername(user.getUsername())) {
 			return new ResponseEntity<>("Usuario ya existe", HttpStatus.CONFLICT);
 		}
@@ -104,9 +112,10 @@ public class UserRestController {
 	public ResponseEntity<List<Crew>> getCrewList(@PathVariable Long id) {
 
 		List<Crew> userCrews = userService.getCrewList(id);
-		
+
 		if (userCrews == null || userCrews.isEmpty()) {
-			return new ResponseEntity<List<Crew>>(userCrews, HttpStatus.NOT_FOUND);
+			System.out.println();
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<List<Crew>>(userCrews, HttpStatus.OK);

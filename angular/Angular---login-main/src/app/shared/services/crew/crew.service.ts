@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Crew } from './crew';
+import { Observable, EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +18,20 @@ export class CrewService {
     
   }
   
-   getCrewList(): Observable<any[]> {
-   const url = `http://localhost:8080/crew/user-id/${localStorage.getItem("token")}/crewList`;
-    return this.http.get<any[]>(url);
-  }
+  getCrewList(): Observable<any[]> {
+	  const idString = localStorage.getItem("id");
+
+	  if (idString) {
+	    const id: number = +idString; 
+
+	    const url = `http://localhost:8080/user/${id}/crewList`;
+	    return this.http.get<any[]>(url);
+	  } else {
+	    console.error('El valor de id en localStorage es nulo o indefinido.');
+	    return EMPTY; 
+	  }
+	}
+
 }
   
   
