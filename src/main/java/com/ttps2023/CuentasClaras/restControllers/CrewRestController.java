@@ -95,6 +95,25 @@ public class CrewRestController {
 		return new ResponseEntity<Object>(crew, HttpStatus.CREATED);
 
 	}
+	
+	
+	@GetMapping("/{crewId}")
+	public ResponseEntity<Object> getCrew(@PathVariable("crewId") Long crewId) {
+		
+		Crew crew = crewService.getById(crewId).orElse(null);
+		
+		if (crew == null) {
+			return new ResponseEntity<>("Grupo no encontrado.", HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Object>(crew,HttpStatus.ACCEPTED);
+
+		
+	}
+	
+	
+	
+	
 
 	@PutMapping("/{crewId}/update")
 	public ResponseEntity<Object> updateCrew(@RequestBody Map<String, Object> request,
