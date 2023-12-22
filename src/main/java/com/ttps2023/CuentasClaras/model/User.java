@@ -162,13 +162,13 @@ public class User {
 		}
 	}
 
-	public List<Contact> getContacts() {
-		return contactList;
-	}
-
-	public void setContacts(List<Contact> contacts) {
-		this.contactList = contacts;
-	}
+//	public List<Contact> getContacts() {
+//		return contactList;
+//	}
+//
+//	public void setContacts(List<Contact> contacts) {
+//		this.contactList = contacts;
+//	}
 
 	public List<Contact> getContactList() {
 		return contactList;

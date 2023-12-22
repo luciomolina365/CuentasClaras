@@ -1,5 +1,6 @@
 package com.ttps2023.CuentasClaras.restControllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ttps2023.CuentasClaras.DTO.Credentials;
+import com.ttps2023.CuentasClaras.model.Crew;
 import com.ttps2023.CuentasClaras.model.User;
 import com.ttps2023.CuentasClaras.services.TokenServices;
 import com.ttps2023.CuentasClaras.services.UserService;
@@ -76,7 +78,8 @@ public class UserRestController {
 		}
 
 		String token = tokenServices.generateToken(user.getUsername(), EXPIRATION_IN_SEC);
-		return new ResponseEntity<>(new Credentials(token, EXPIRATION_IN_SEC, user.getId(), user.getUsername()), HttpStatus.OK);
+		return new ResponseEntity<>(new Credentials(token, EXPIRATION_IN_SEC, user.getId(), user.getUsername()),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/logout")
@@ -95,6 +98,18 @@ public class UserRestController {
 		}
 
 		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}/crewList")
+	public ResponseEntity<List<Crew>> getCrewList(@PathVariable Long id) {
+
+		List<Crew> userCrews = userService.getCrewList(id);
+		
+		if (userCrews == null || userCrews.isEmpty()) {
+			return new ResponseEntity<List<Crew>>(userCrews, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<List<Crew>>(userCrews, HttpStatus.OK);
 	}
 
 }
