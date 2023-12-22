@@ -2,7 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CrewService } from 'src/app/shared/services/crew/crew.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-crew-list',
   templateUrl: './crew-list.component.html',
@@ -11,7 +11,7 @@ export class CrewListComponent implements OnInit {
 
   crewList: any[] = [];
 
-  constructor(private crewService: CrewService) {}
+  constructor(private crewService: CrewService,private router: Router) {}
 
   ngOnInit() {
     this.getCrewList();
@@ -28,4 +28,10 @@ export class CrewListComponent implements OnInit {
         }
       );
   }
-}
+  
+   editCrew(crewId: number) {
+    // Almacena la ID del grupo que se va a editar
+    this.crewService.setEditingCrewId(crewId);
+    this.router.navigate(["/home/crew"]);
+  
+}}

@@ -1,60 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crear Tripulación</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
+<!-- crew.component.html -->
 
-    .container {
-      width: 300px; 
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h2>Crear Grupo</h2>
-    <form>
-      <div class="form-group">
-        <label for="crewName">Nombre de la Tripulación:</label>
-        <input [(ngModel)]="crewName" name="crewName" type="text" class="form-control" required>
-      </div>
+<h2>Formulario de Crew</h2>
 
-      <div class="form-group">
-        <div class="form-check">
-          <input [(ngModel)]="isPrivate" name="isPrivate" type="checkbox" class="form-check-input">
-          <label class="form-check-label" for="isPrivate">¿Es privada?</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="category">Categoría:</label>
-        <select [(ngModel)]="category" name="category" class="form-control">
-          <option value=1>Familia</option>
-          <option value=2>Viaje</option>
-          <option value=3>Salida</option>
-          <option value=4>Otro</option>
-        </select>
-      </div>
-
-      <button (click)="createCrew()" class="btn btn-primary">Crear Grupo</button>
-    </form>
+<form (ngSubmit)="createOrEditCrew()">
+  <div class="form-group">
+    <label for="crewName">Nombre de la Tripulación:</label>
+    <input [(ngModel)]="crewName" name="crewName" type="text" class="form-control" required>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+  <div class="form-group">
+    <div class="form-check">
+      <input [(ngModel)]="isPrivate" name="isPrivate" type="checkbox" class="form-check-input">
+      <label class="form-check-label" for="isPrivate">¿Es privada?</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Categoría:</label>
+    <select [(ngModel)]="category" name="category" class="form-control">
+      <option value=1>Familia</option>
+      <option value=2>Viaje</option>
+      <option value=3>Salida</option>
+      <option value=4>Otro</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<!-- Muestra información de la tripulación existente cuando estás en modo de edición -->
+<div *ngIf="editingCrewId !== null && existingCrew">
+  <h3>Editando Tripulación Existente</h3>
+  <p>Nombre: {{ existingCrew.name }}</p>
+  <p>¿Es privada?: {{ existingCrew.isPrivate ? 'Sí' : 'No' }}</p>
+  <p>Categoría: {{ existingCrew.category }}</p>
+</div>
