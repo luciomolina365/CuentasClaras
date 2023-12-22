@@ -16,4 +16,12 @@ export class CrewService {
     return this.http.post<Crew>("http://localhost:8080/crew/create", crewData)    
     
   }
+  
+   getCrewList(): Observable<any[]> {
+    return this.http.get<any[]>("http://localhost:8080/crew/user-id/crewList");//local storage creo q si lo trees va
+  }
+  
+  
+  
+  
 }

@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './menu/pages/home/home.component';
+
 import {CrewComponent } from './menu/pages/crew/crew.component';
 import {MenuComponent } from './menu/menu.component';
+import {CrewListComponent } from './menu/pages/crew-list/crew-list.component';
 
 
 const routes: Routes = [
   {
     path: '',
     children: [
+		 {
+        path: 'crewList',
+        component: CrewListComponent
+      },
 	 {
         path: 'crew',
         component: CrewComponent

@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule)
   },
   {
-    path: 'core',
+    path: 'home',
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: '**',
     //component: ErrorPageComponent
-    redirectTo: 'core'
+    redirectTo: 'home'
   }
 ];
 

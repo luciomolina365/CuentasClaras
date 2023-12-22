@@ -7,12 +7,15 @@ import { CoreRoutingModule } from './core-routing.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CrewComponent } from './menu/pages/crew/crew.component';
+import { CrewListComponent } from './menu/pages/crew-list/crew-list.component';
+import { CrewService } from 'src/app/shared/services/crew/crew.service';
 
 @NgModule({
-	declarations: [MenuComponent, CrewComponent],
+	declarations: [MenuComponent, CrewComponent, CrewListComponent],
 	imports: [CommonModule,
 		FormsModule, CoreRoutingModule, ReactiveFormsModule],
 	exports: [MenuComponent,
 	],
+	providers: [CrewService],
 })
 export class CoreModule { }

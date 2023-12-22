@@ -38,7 +38,7 @@ export class LoginComponent {
                         localStorage.setItem('id', response.id);
                         localStorage.setItem('username', response.username);
 
-                        this.router.navigate(['/core/menu']);
+                        this.router.navigate(['/home/menu']);
                         
                     } else {
                         console.log('Inicio de sesión fallido. Token no recibido.');
