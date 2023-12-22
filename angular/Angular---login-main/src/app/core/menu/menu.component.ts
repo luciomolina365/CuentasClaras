@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/shared/services/auth/login.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
+  styleUrls: ['menu.component.scss'],
 })
 export class MenuComponent {
   isAuthenticated$ = this.loginService.isAuthenticated$();

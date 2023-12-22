@@ -1,0 +1,48 @@
+/* crew-list.component.css */
+/* Estilo para el contenedor principal */
+.container {
+  margin-top: 20px;
+}
+
+/* Estilo para el título */
+h2 {
+  color: #007bff; /* Color azul Bootstrap por defecto */
+}
+
+/* Estilo para la lista de tripulaciones */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Estilo para cada elemento de la lista */
+li {
+  margin-bottom: 10px;
+}
+
+/* Estilo para los botones en la lista de tripulaciones */
+button {
+  background-color: #007bff; /* Color azul Bootstrap por defecto */
+  border: none;
+  color: #ffffff; /* Color del texto blanco */
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+/* Cambia el color del botón al pasar el mouse */
+button:hover {
+  background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+}
+
+/* Estilo para el mensaje cuando no hay tripulaciones */
+#noCrewMessage {
+  color: #6c757d; /* Color gris oscuro Bootstrap */
+  margin-top: 20px;
+}
+
+/* Estilo para el enlace del menú */
+app-menu {
+  margin-bottom: 20px;
+}

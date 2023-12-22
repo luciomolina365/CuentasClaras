@@ -1,0 +1,69 @@
+/* Agrega estilos generales al cuerpo de la página */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilo para el contenedor principal */
+.container {
+  background-color: #f8f9fa; /* Color de fondo Bootstrap light */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Estilo para el encabezado */
+h1 {
+  color: #007bff; /* Color azul Bootstrap por defecto */
+}
+
+/* Estilo para la barra de navegación */
+.navbar {
+  background-color: #ffffff; /* Color de fondo blanco */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilo para los ítems de la barra de navegación */
+.nav-link {
+  color: #343a40; /* Color del texto oscuro */
+}
+
+/* Estilo para el botón de cerrar sesión */
+button {
+  background-color: #dc3545; /* Color rojo Bootstrap */
+  border: none;
+  color: #ffffff; /* Color del texto blanco */
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+/* Cambia el color del botón al pasar el mouse */
+button:hover {
+  background-color: #c82333; /* Color rojo más oscuro al pasar el mouse */
+}
+
+/* Estilo para los ítems de la barra de navegación cuando se despliega */
+.navbar-nav .nav-item {
+  margin-right: 10px;
+}
+
+/* Estilo para los enlaces de router */
+.navbar-nav .nav-link {
+  text-decoration: none;
+}
+
+/* Estilo para el formulario de inicio de sesión y registro */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Estilo para el botón de registro */
+.btn-primary {
+  background-color: #28a745; /* Color verde Bootstrap */
+  border: none;
+  transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+/* Cambia el color del botón de registro al pasar el mouse */
+.btn-primary:hover {
+  background-color: #218838; /* Color verde más oscuro al pasar el mouse */
+}

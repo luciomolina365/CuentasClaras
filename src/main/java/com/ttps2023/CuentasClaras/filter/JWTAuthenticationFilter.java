@@ -17,7 +17,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName = "jwt-auth-filter", urlPatterns = "/test")  ////   "/*"
+@WebFilter(filterName = "jwt-auth-filter", urlPatterns = "/*")  ////   "/*"
 public class JWTAuthenticationFilter implements Filter {
 
 	private static final String AUTH_PATH = "/user/create";

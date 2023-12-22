@@ -1,0 +1,61 @@
+// expense-list.component.scss
+/* Estilo para el título */
+h2 {
+  color: #007bff; /* Color azul Bootstrap por defecto */
+  text-align: center; /* Centra el título */
+}
+
+/* Estilo para la lista de gastos */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* Elimina el margen para centrar la lista horizontalmente */
+  text-align: center; /* Centra la lista */
+}
+
+/* Estilo para cada elemento de la lista */
+li {
+  margin-bottom: 10px;
+}
+
+/* Estilo para los botones en la lista de gastos */
+button {
+  background-color: #007bff; /* Color azul Bootstrap por defecto */
+  border: none;
+  color: #ffffff; /* Color del texto blanco */
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s ease; /* Efecto de transición */
+  text-align: center; /* Centra el botón */
+}
+
+/* Cambia el color del botón al pasar el mouse */
+button:hover {
+  background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+}
+
+/* Estilo para el mensaje cuando no hay gastos */
+#noExpenseMessage {
+  color: #6c757d; /* Color gris oscuro Bootstrap */
+  margin-top: 20px;
+  text-align: center; /* Centra el mensaje */
+}
+
+/* Estilo para el botón de agregar gasto */
+button.btnAddExpense {
+  background-color: #28a745; /* Color verde Bootstrap */
+  border: none;
+  color: #ffffff; /* Color del texto blanco */
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease; /* Efecto de transición */
+  text-align: center; /* Centra el botón */
+}
+
+/* Cambia el color del botón de agregar gasto al pasar el mouse */
+button.btnAddExpense:hover {
+  background-color: #218838;
+    text-align: center; /* Centra el botón */ 
+}

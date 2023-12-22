@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-expense-list',
   templateUrl: './expense-list.component.html',
+  styleUrls:['./expense-list.component.scss'],
 })
 export class ExpenseListComponent implements OnInit {
 
@@ -55,6 +56,14 @@ export class ExpenseListComponent implements OnInit {
 	  this.router.navigate([`/home/crew-info/${name}/expense`]);
 	}
 
+  dateFormatter(dateString: string): string {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const dateFormatted = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+    return dateFormatted;
+  }
   
   
 }

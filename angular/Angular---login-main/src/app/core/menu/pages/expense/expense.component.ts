@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
+  styleUrls: ['./expense.component.scss'],
 })
 export class ExpenseComponent implements OnInit {
   expenseForm: FormGroup = this.fb.group({

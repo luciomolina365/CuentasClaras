@@ -1,0 +1,30 @@
+/* crew-info.component.css */
+/* Estilo para el contenedor principal */
+.container {
+  margin-top: 20px;
+}
+
+/* Estilo para el título */
+h2 {
+  color: #007bff; /* Color azul Bootstrap por defecto */
+}
+
+/* Estilo para la información de la tripulación */
+div {
+  max-width: 400px; /* Ancho máximo del contenedor */
+  margin: auto; /* Centrar el contenido en la página */
+  padding: 20px;
+  border: 1px solid #dee2e6; /* Borde gris Bootstrap */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilo para los mensajes */
+p {
+  margin-bottom: 10px;
+}
+
+/* Estilo para la lista de gastos */
+app-expense-list {
+  margin-top: 20px;
+}

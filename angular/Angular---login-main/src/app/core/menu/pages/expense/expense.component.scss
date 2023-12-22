@@ -1,0 +1,46 @@
+/* expense.component.css */
+/* Estilo para el formulario */
+form {
+  max-width: 400px; /* Ancho máximo del formulario */
+  margin: auto; /* Centrar el formulario en la página */
+  padding: 20px;
+  border: 1px solid #dee2e6; /* Borde gris Bootstrap */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilo para las etiquetas de los campos */
+label {
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Estilo para los campos de entrada */
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+/* Estilo para los mensajes de error */
+div.error-message {
+  color: #dc3545; /* Color rojo Bootstrap para mensajes de error */
+  margin-top: 4px;
+}
+
+/* Estilo para el botón de guardar */
+button {
+  background-color: #007bff; /* Color azul Bootstrap por defecto */
+  border: none;
+  color: #ffffff; /* Color del texto blanco */
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+/* Cambia el color del botón al pasar el mouse */
+button:hover {
+  background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+}

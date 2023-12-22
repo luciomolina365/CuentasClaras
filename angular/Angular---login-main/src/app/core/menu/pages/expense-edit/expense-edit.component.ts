@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-expense-edit',
   templateUrl: './expense-edit.component.html',
- // styleUrls: ['./expense-edit.component.scss']
+  styleUrls: ['./expense-edit.component.scss']
 })
 export class ExpenseEditComponent implements OnInit {
   isEditMode: boolean = false;
@@ -67,6 +67,6 @@ export class ExpenseEditComponent implements OnInit {
   );
 }
   
-  
 }
+
 

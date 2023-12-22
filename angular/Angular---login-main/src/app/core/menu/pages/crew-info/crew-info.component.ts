@@ -7,7 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crew-info',
-  templateUrl: './crew-info.component.html',
+  templateUrl: './crew-info.component.html',  
+  styleUrls: ['./crew-info.component.scss'],
 })
 export class CrewInfoComponent implements OnInit {
 

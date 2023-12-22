@@ -1,11 +1,10 @@
 <!-- expense-list.component.html -->
-
 <h2>Listado de Gastos</h2>
 
 <div *ngIf="expenseList && expenseList.length > 0; else noExpenseMessage">
   <ul>
     <li *ngFor="let expense of expenseList">
-      {{ expense.name }} - {{ expense.amount }} - {{ expense.date }}
+      {{ expense.name }} - {{ expense.amount }} - {{ dateFormatter(expense.date) }}
       <button (click)="editExpense(expense.id, expense.name)">Editar</button>
     </li>
   </ul>
