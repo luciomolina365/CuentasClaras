@@ -30,10 +30,6 @@ export class CrewListComponent implements OnInit {
   }
   
    editCrew(crewId: number) {
-    // Almacena la ID del grupo que se va a editar
-    console.log("*********************************************");
-	console.log(crewId);
-	console.log("*********************************************");
     this.crewService.setEditingCrewId(crewId);
     this.router.navigate(["/home/crew"]);
   

@@ -7,7 +7,7 @@ import { Observable, EMPTY } from 'rxjs';
 	providedIn: 'root'
 })
 export class CrewService {
-	private editingCrewId: number | null = null;
+	private editingCrewId: number | null = null; //es mejor sessionStore?
 
 
 	// private apiUrl = 'http://localhost:8080/crews'; // Reemplaza con la URL de tu API

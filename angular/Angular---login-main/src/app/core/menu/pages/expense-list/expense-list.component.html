@@ -1,0 +1,16 @@
+<!-- expense-list.component.html -->
+
+<h2>Listado de Gastos</h2>
+
+<div *ngIf="expenseList && expenseList.length > 0; else noExpenseMessage">
+  <ul>
+    <li *ngFor="let expense of expenseList">
+      {{ expense.name }} - {{ expense.amount }}
+      <button (click)="editExpense(expense.id)">Editar</button>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noExpenseMessage>
+  <p>No hay gastos registrados en el grupo.</p>
+</ng-template>
